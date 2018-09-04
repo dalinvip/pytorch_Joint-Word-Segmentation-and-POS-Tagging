@@ -1,2 +1,2 @@
-# pytorch_Joint-Word-Segmentation-and-POS-Tagging
-Paper: A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging
+## JointPS: A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging
+[A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://zhangmeishan.github.io/ChineseLexicalProcessing.pdf), implement in pytorch.
