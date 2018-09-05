@@ -210,12 +210,28 @@ class Configurable(myconf):
         return self._config.getint("Model", "embed_dim")
 
     @property
-    def lstm_hiddens(self):
-        return self._config.getint("Model", "lstm_hiddens")
+    def embed_char_dim(self):
+        return self._config.getint("Model", "embed_char_dim")
 
     @property
-    def dropout_emb(self):
-        return self._config.getfloat("Model", "dropout_emb")
+    def embed_bichar_dim(self):
+        return self._config.getint("Model", "embed_bichar_dim")
+
+    @property
+    def rnn_hidden_dim(self):
+        return self._config.getint("Model", "rnn_hidden_dim")
+
+    @property
+    def rnn_dim(self):
+        return self._config.getint("Model", "rnn_dim")
+
+    @property
+    def pos_dim(self):
+        return self._config.getint("Model", "pos_dim")
+
+    @property
+    def dropout_embed(self):
+        return self._config.getfloat("Model", "dropout_embed")
 
     @property
     def dropout(self):

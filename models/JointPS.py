@@ -32,11 +32,14 @@ class JointPS(nn.Module):
         self.encoder = Encoder(config)
         self.decoder = Decoder(config)
 
-    def forward(self, x):
+    def forward(self, x, train=False):
         """
         :param x:
+        :param train:
         :return:
         """
         encoder = self.encoder(x)
-        decoder_out, state = self.decoder(x, encoder)
+        decoder_out, state = self.decoder(x, encoder, train=train)
         return decoder_out, state
+
+

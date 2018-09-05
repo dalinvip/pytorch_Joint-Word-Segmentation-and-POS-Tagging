@@ -69,14 +69,15 @@ def get_params(config, alphabet, alphabet_static):
 
     config.char_paddingId = alphabet.char_PaddingID
     config.bichar_paddingId = alphabet.bichar_PaddingID
-    # config.static_char_paddingId = alphabet_static.char_PaddingID
-    # config.static_bichar_paddingId = alphabet_static.bichar_PaddingID
+    config.static_char_paddingId = alphabet_static.char_PaddingID
+    config.static_bichar_paddingId = alphabet_static.bichar_PaddingID
     config.create_alphabet = alphabet
     config.create_alphabet_static = alphabet_static
     print("embed_char_num : {}, embed_bichar_num : {}".format(config.embed_char_num, config.embed_bichar_num))
-    print("static_embed_char_num : {}, embed_bichar_num : {}".format(config.static_embed_char_num, config.static_embed_bichar_num))
+    print("static_embed_char_num : {}, static_embed_bichar_num : {}".format(config.static_embed_char_num, config.static_embed_bichar_num))
     print("label_size : {}, pos_size : {}".format(config.label_size, config.pos_size))
     print("char_paddingId : {}, bichar_paddingId : {}".format(config.char_paddingId, config.bichar_paddingId))
+    print("static_char_paddingId : {}, static_bichar_paddingId : {}".format(config.static_char_paddingId, config.static_bichar_paddingId))
 
 
 def save_dict2file(dict, path):
@@ -187,13 +188,13 @@ def pre_embed(config, alphabet, alphabet_static):
     elif (config.char_pretrained_embed is True or config.bichar_pretrained_embed is True) and config.nnembed:
         embed_types = "nn"
     if config.char_pretrained_embed is True:
-        p = Embed(path=config.char_pretrained_embed_file, words_dict=alphabet_static.word_alphabet.id2words,
+        p = Embed(path=config.char_pretrained_embed_file, words_dict=alphabet_static.char_alphabet.id2words,
                   embed_type=embed_types,
                   pad=paddingkey)
         char_pretrain_embed = p.get_embed()
 
     if config.bichar_pretrained_embed is True:
-        p = Embed(path=config.bichar_pretrained_embed_file, words_dict=alphabet_static.word_alphabet.id2words,
+        p = Embed(path=config.bichar_pretrained_embed_file, words_dict=alphabet_static.bichar_alphabet.id2words,
                   embed_type=embed_types,
                   pad=paddingkey)
         bichar_pretrain_embed = p.get_embed()
