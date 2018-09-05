@@ -29,8 +29,6 @@ class Decoder(nn.Module):
         self.config = config
 
         self.pos_paddingKey = self.config.create_alphabet.pos_PaddingID
-        print("pos_paddingKey", self.pos_paddingKey)
-        print("appID", self.config.create_alphabet.appID)
 
         self.lstmcell = nn.LSTMCell(input_size=self.config.rnn_dim, hidden_size=self.config.rnn_dim, bias=True)
         init.xavier_uniform(self.lstmcell.weight_ih)

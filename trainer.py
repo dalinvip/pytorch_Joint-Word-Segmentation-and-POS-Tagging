@@ -167,9 +167,9 @@ class Train(object):
                 # self.optimizer.step()
                 steps += 1
                 if (steps - 1) % self.config.log_interval == 0:
-                    sys.stdout.write("\rBatch_count = [{}] , Loss is {:.6f} , (Correct/ Total_num) = Accuracy ({} / {})"
-                                     " = {:.6f}%".format(batch_count + 1, loss.data[0], self.train_eval.correct_num,
-                                                      self.train_eval.gold_num, self.train_eval.acc() * 100))
+                    sys.stdout.write("\nBatch_count = [{}/{}] , Loss is {:.6f} , (Correct/ Total_num) = Accuracy ({} / {})"
+                                     " = {:.6f}%".format(batch_count + 1, self.train_iter_len, loss.data[0], self.train_eval.correct_num,
+                                                         self.train_eval.gold_num, self.train_eval.acc() * 100))
             end_time = time.time()
             # print("\nTrain Time {:.3f}".format(end_time - start_time), end="")
             print("\nTrain Time {:.4f}".format(end_time - start_time))
@@ -199,6 +199,7 @@ class Train(object):
         print("Test Time {:.4f}".format(eval_end_time - eval_start_time))
 
     def eval_batch(self, data_iter, model, eval_seg, eval_pos, best_score, epoch, config, test=False):
+        model.eval()
         for batch_features in data_iter:
             decoder_out, state = model(batch_features, train=False)
             for i in range(batch_features.batch_length):
@@ -206,7 +207,6 @@ class Train(object):
 
         # calculate the F-Score
         seg_p, seg_r, seg_f = eval_seg.getFscore()
-
         pos_p, pos_r, pos_f = eval_pos.getFscore()
 
         test_flag = "Test"

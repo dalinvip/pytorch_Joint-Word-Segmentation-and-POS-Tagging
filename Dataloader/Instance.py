@@ -23,6 +23,7 @@ class Instance:
         Instance
     """
     def __init__(self):
+        self.line = ""
         self.words = []
         self.words_size = 0
         self.chars = []

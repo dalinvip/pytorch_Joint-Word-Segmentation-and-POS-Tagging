@@ -145,7 +145,8 @@ def preprocessing(config):
     train_data, dev_data, test_data = data_loader.dataLoader()
     print("Train Sentence {}, Dev Sentence {}, Test Sentence {}.".format(len(train_data), len(dev_data), len(test_data)))
     data_dict = {"train_data": train_data, "dev_data": dev_data, "test_data": test_data}
-    pcl.save(obj=data_dict, path=os.path.join(config.pkl_directory, config.pkl_data))
+    if config.save_pkl is True:
+        pcl.save(obj=data_dict, path=os.path.join(config.pkl_directory, config.pkl_data))
 
     # create the alphabet, alphabet_static
     alphabet = CreateAlphabet(min_freq=config.min_freq, word_min_freq=config.word_min_freq,
@@ -157,7 +158,8 @@ def preprocessing(config):
     alphabet.build_vocab()
     alphabet_static.build_vocab()
     alphabet_dict = {"alphabet": alphabet, "alphabet_static": alphabet_static}
-    pcl.save(obj=alphabet_dict, path=os.path.join(config.pkl_directory, config.pkl_alphabet))
+    if config.save_pkl is True:
+        pcl.save(obj=alphabet_dict, path=os.path.join(config.pkl_directory, config.pkl_alphabet))
 
     # create iterator
     create_iter = Iterators(batch_size=[config.batch_size, config.dev_batch_size, config.test_batch_size],
@@ -165,7 +167,8 @@ def preprocessing(config):
                             config=config)
     train_iter, dev_iter, test_iter = create_iter.createIterator()
     iter_dict = {"train_iter": train_iter, "dev_iter": dev_iter, "test_iter": test_iter}
-    pcl.save(obj=iter_dict, path=os.path.join(config.pkl_directory, config.pkl_iter))
+    if config.save_pkl is True:
+        pcl.save(obj=iter_dict, path=os.path.join(config.pkl_directory, config.pkl_iter))
     return train_iter, dev_iter, test_iter, alphabet, alphabet_static
 
 
@@ -201,7 +204,8 @@ def pre_embed(config, alphabet, alphabet_static):
 
     if config.char_pretrained_embed is True or config.bichar_pretrained_embed is True:
         embed_dict = {"char_pretrain_embed": char_pretrain_embed, "bichar_pretrain_embed": bichar_pretrain_embed}
-        pcl.save(obj=embed_dict, path=os.path.join(config.pkl_directory, config.pkl_embed))
+        if config.save_pkl is True:
+            pcl.save(obj=embed_dict, path=os.path.join(config.pkl_directory, config.pkl_embed))
 
     return char_pretrain_embed, bichar_pretrain_embed
 

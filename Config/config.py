@@ -129,6 +129,10 @@ class Configurable(myconf):
 
     # Save
     @property
+    def save_pkl(self):
+        return self._config.getboolean('Save', 'save_pkl')
+
+    @property
     def pkl_directory(self):
         return self._config.get('Save', 'pkl_directory')
 

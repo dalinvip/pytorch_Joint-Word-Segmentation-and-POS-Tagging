@@ -59,8 +59,7 @@ class DataLoaderHelp(object):
                 new_word += char
         return new_word
 
-    @staticmethod
-    def _sort(insts):
+    def _sort(self, insts, path):
         """
         :param insts:
         :return:
@@ -73,7 +72,14 @@ class DataLoaderHelp(object):
         for key, value in dict:
             sorted_insts.append(insts[key])
         print("Sort Finished.")
+        # self._sort2file(sorted_insts, path)
         return sorted_insts
+
+    def _sort2file(self, insts, path):
+        print("Sort Result To File.")
+        # path = path + "_sort.txt"
+        print(path)
+        exit()
 
 
 class DataLoader(DataLoaderHelp):
@@ -107,10 +113,8 @@ class DataLoader(DataLoaderHelp):
             if shuffle is True and id_data == 0:
                 print("shuffle train data......")
                 random.shuffle(insts)
-            # sorted(inst)
-            # if id_data == 0:
-            #     insts = self._sort(insts)
-            # sorted_insts = self.sort(insts)
+            insts = self._sort(insts, path=path[id_data])
+
             self.data_list.append(insts)
         # return train/dev/test data
         if len(self.data_list) == 3:
@@ -134,6 +138,9 @@ class DataLoader(DataLoaderHelp):
                 # init instance
                 inst = Instance()
                 line = line.split(" ")
+                inst.line = " ".join(line)
+                # print(inst.line)
+                # print(line)
                 count = 0
                 for word_pos in line:
                     # segment the word and pos in line
