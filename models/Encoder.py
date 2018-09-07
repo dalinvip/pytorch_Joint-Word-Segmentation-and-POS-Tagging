@@ -30,10 +30,14 @@ class Encoder(nn.Module):
         # random
         self.char_embed = nn.Embedding(self.config.embed_char_num, self.config.embed_char_dim, sparse=False,
                                        padding_idx=self.config.char_paddingId)
+        # init.uniform(self.char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
+        #              b=np.sqrt(3 / self.config.embed_char_dim))
         self.char_embed.weight.requires_grad = True
 
         self.bichar_embed = nn.Embedding(self.config.embed_bichar_num, self.config.embed_bichar_dim, sparse=False,
                                          padding_idx=self.config.bichar_paddingId)
+        # init.uniform(self.bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
+        #              b=np.sqrt(3 / self.config.embed_bichar_dim))
         self.bichar_embed.weight.requires_grad = True
 
         # fix the word embedding
@@ -81,10 +85,8 @@ class Encoder(nn.Module):
         self.dropout_embed = nn.Dropout(self.config.dropout_embed)
 
         self.input_dim = (self.config.embed_char_dim + self.config.embed_bichar_dim) * 2
-        if self.config.use_cuda is True:
-            self.liner = nn.Linear(in_features=self.input_dim, out_features=self.config.rnn_dim, bias=True).cuda()
-        else:
-            self.liner = nn.Linear(in_features=self.input_dim, out_features=self.config.rnn_dim, bias=True)
+
+        self.liner = nn.Linear(in_features=self.input_dim, out_features=self.config.rnn_dim, bias=True)
 
         # init linear
         init.xavier_uniform(self.liner.weight)

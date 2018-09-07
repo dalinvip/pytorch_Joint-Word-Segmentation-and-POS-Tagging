@@ -167,7 +167,7 @@ class Train(object):
                 # self.optimizer.step()
                 steps += 1
                 if (steps - 1) % self.config.log_interval == 0:
-                    sys.stdout.write("\nBatch_count = [{}/{}] , Loss is {:.6f} , (Correct/ Total_num) = Accuracy ({} / {})"
+                    sys.stdout.write("\nBatch_count = [{}/{}] , Loss is {:.6f} , (Correct/Total_num) = Accuracy ({}/{})"
                                      " = {:.6f}%".format(batch_count + 1, self.train_iter_len, loss.data[0], self.train_eval.correct_num,
                                                          self.train_eval.gold_num, self.train_eval.acc() * 100))
             end_time = time.time()

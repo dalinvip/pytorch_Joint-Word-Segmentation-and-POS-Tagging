@@ -9,7 +9,7 @@
     FUNCTION : Common File
 """
 
-seed_num = 666
+seed_num = 233
 unkkey = "<unk>"
 paddingkey = "<pad>"
 nullkey = '-NULL-'

@@ -113,7 +113,7 @@ class DataLoader(DataLoaderHelp):
             if shuffle is True and id_data == 0:
                 print("shuffle train data......")
                 random.shuffle(insts)
-            insts = self._sort(insts, path=path[id_data])
+            # insts = self._sort(insts, path=path[id_data])
 
             self.data_list.append(insts)
         # return train/dev/test data

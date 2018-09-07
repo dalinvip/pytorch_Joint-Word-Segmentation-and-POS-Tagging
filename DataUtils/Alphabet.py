@@ -43,6 +43,7 @@ class CreateAlphabet:
         self._char_state = collections.OrderedDict()
         self._bichar_state = collections.OrderedDict()
         self._pos_state = collections.OrderedDict()
+        self._word_len_state = collections.OrderedDict()
 
         # unk and pad
         self._word_state[unkkey] = self.word_min_freq
@@ -61,6 +62,7 @@ class CreateAlphabet:
         # pos min_freq = 1, not cut
         self.pos_alphabet = Alphabet(min_freq=1)
         self.label_alphabet = Alphabet(min_freq=min_freq)
+        self.wordLenAlpha = Alphabet()
 
         # unk key
         self.word_UnkkID = 0
@@ -155,6 +157,14 @@ class CreateAlphabet:
             for gold in data.gold:
                 self.label_alphabet.loadWord2idAndId2Word(gold)
 
+        self.wordLenAlpha.loadWord2idAndId2Word("0")
+        self.wordLenAlpha.loadWord2idAndId2Word("1")
+        self.wordLenAlpha.loadWord2idAndId2Word("2")
+        self.wordLenAlpha.loadWord2idAndId2Word("3")
+        self.wordLenAlpha.loadWord2idAndId2Word("4")
+        self.wordLenAlpha.loadWord2idAndId2Word("5")
+        self.wordLenAlpha.loadWord2idAndId2Word("6")
+
         # Create id2words and words2id by the Alphabet Class
         self.word_alphabet.initialWord2idAndId2Word(self._word_state)
         self.char_alphabet.initialWord2idAndId2Word(self._char_state)
@@ -181,6 +191,7 @@ class CreateAlphabet:
         self.bichar_alphabet.set_fixed_flag(True)
         self.pos_alphabet.set_fixed_flag(True)
         self.label_alphabet.set_fixed_flag(True)
+        self.wordLenAlpha.set_fixed_flag(True)
 
 
 class Alphabet:
