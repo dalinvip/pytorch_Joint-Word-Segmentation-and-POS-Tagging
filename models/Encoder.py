@@ -22,6 +22,9 @@ random.seed(seed_num)
 
 
 class Encoder(nn.Module):
+    """
+        Encoder
+    """
 
     def __init__(self, config):
         super(Encoder, self).__init__()
@@ -30,14 +33,10 @@ class Encoder(nn.Module):
         # random
         self.char_embed = nn.Embedding(self.config.embed_char_num, self.config.embed_char_dim, sparse=False,
                                        padding_idx=self.config.char_paddingId)
-        # init.uniform(self.char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
-        #              b=np.sqrt(3 / self.config.embed_char_dim))
         self.char_embed.weight.requires_grad = True
 
         self.bichar_embed = nn.Embedding(self.config.embed_bichar_num, self.config.embed_bichar_dim, sparse=False,
                                          padding_idx=self.config.bichar_paddingId)
-        # init.uniform(self.bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
-        #              b=np.sqrt(3 / self.config.embed_bichar_dim))
         self.bichar_embed.weight.requires_grad = True
 
         # fix the word embedding
@@ -78,9 +77,6 @@ class Encoder(nn.Module):
         self.lstm_right.bias_hh.data.uniform_(-value, value)
         self.lstm_right.bias_ih.data.uniform_(-value, value)
 
-        # self.hidden_l = self.init_hidden_cell(self.config.batch_size)
-        # self.hidden_r = self.init_hidden_cell(self.config.batch_size)
-
         self.dropout = nn.Dropout(self.config.dropout)
         self.dropout_embed = nn.Dropout(self.config.dropout_embed)
 
@@ -93,17 +89,11 @@ class Encoder(nn.Module):
         init_linear_value = np.sqrt(6 / (self.config.rnn_dim + 1))
         self.liner.bias.data.uniform_(-init_linear_value, init_linear_value)
 
-    def init_hidden_cell(self, batch_size=1):
-        # the first is the hidden h
-        # the second is the cell  c
-        if self.config.use_cuda is True:
-            return (Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim)).cuda(),
-                    Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim)).cuda())
-        else:
-            return (Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim)),
-                    Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim)))
-
     def init_cell_hidden(self, batch=1):
+        """
+        :param batch:  batch size
+        :return:
+        """
         if self.config.use_cuda is True:
             return (torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda(),
                     torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda())
@@ -113,6 +103,10 @@ class Encoder(nn.Module):
 
     # @time
     def forward(self, features):
+        """
+        :param features:
+        :return:
+        """
         batch_length = features.batch_length
         char_features_num = features.static_char_features.size(1)
 
@@ -144,10 +138,6 @@ class Encoder(nn.Module):
 
         right_concat_non_linear = self.dropout(F.tanh(self.liner(right_concat)))
         right_concat_input = right_concat_non_linear.permute(1, 0, 2)
-
-        # # init hidden cell
-        # self.hidden = self.init_hidden_cell(batch_size=batch_length)
-        # left_lstm_output, _ = self.lstm_left(left_concat_input)
 
         left_h, left_c = self.init_cell_hidden(batch_length)
         right_h, right_c = self.init_cell_hidden(batch_length)

@@ -33,11 +33,9 @@ class Embed(object):
         self.words_dict = words_dict
         self.embed_type = embed_type
         self.pad = pad
-        # print(self.words_dict)
         if not isinstance(self.words_dict, dict):
             self.words_dict, self.words_list = self._list2dict(self.words_dict)
         if pad is not None: self.padID = self.words_dict[pad]
-        # print(self.words_dict)
         self.dim, self.words_count = self._get_dim(path=self.path), len(self.words_dict)
         self.exact_count, self.fuzzy_count, self.oov_count = 0, 0, 0
 

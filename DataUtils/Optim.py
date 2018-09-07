@@ -2,14 +2,17 @@
 import torch.optim
 from torch.nn.utils.clip_grad import clip_grad_norm
 
-# Setup optimizer (should always come after model.cuda())
-# iterable of dicts for per-param options where each dict
-# is {'params' : [p1, p2, p3...]}.update(generic optimizer args)
-# Example:
-# optim.SGD([
-        # {'params': model.base.parameters()},
-        # {'params': model.classifier.parameters(), 'lr': 1e-3}
-    # ], lr=1e-2, momentum=0.9)
+"""
+    Setup optimizer (should always come after model.cuda())
+iterable of dicts for per-param options where each dict
+is {'params' : [p1, p2, p3...]}.update(generic optimizer args)
+Example:
+optim.SGD([
+        {'params': model.base.parameters()},
+        {'params': model.classifier.parameters(), 'lr': 1e-3}
+    ], lr=1e-2, momentum=0.9)
+
+"""
 
 
 def decay_learning_rate(optimizer, epoch, init_lr, lr_decay):
@@ -27,6 +30,9 @@ def decay_learning_rate(optimizer, epoch, init_lr, lr_decay):
 
 
 class Optimizer(object):
+    """
+        Optimizer
+    """
     # Class dict to map lowercase identifiers to actual classes
     methods = {
         'Adadelta':   torch.optim.Adadelta,
@@ -115,6 +121,9 @@ class Optimizer(object):
             self.step = self.optim.step
 
     def zero_grad(self):
+        """
+        :return:
+        """
         self.optim.zero_grad()
 
     def step(self, closure=None):
@@ -125,6 +134,11 @@ class Optimizer(object):
         self.optim.step(closure)
 
     def rescale_lrate(self, scale, min_lrate=-1.0):
+        """
+        :param scale:
+        :param min_lrate:
+        :return:
+        """
         if isinstance(scale, list):
             for scale_, group in zip(scale, self.optim.param_groups):
                 group['lr'] = max(group['lr'] * scale_, min_lrate)
@@ -133,10 +147,17 @@ class Optimizer(object):
                 group['lr'] = max(group['lr'] * scale, min_lrate)
 
     def get_lrate(self):
+        """
+        :return:
+        """
         for group in self.optim.param_groups:
             yield group['lr']
 
     def set_lrate(self, lr):
+        """
+        :param lr:  lr
+        :return:
+        """
         if isinstance(lr, list):
             for lr_, group in zip(lr, self.optim.param_groups):
                 group['lr'] = lr_

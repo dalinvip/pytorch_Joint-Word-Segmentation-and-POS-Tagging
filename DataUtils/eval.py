@@ -1,4 +1,7 @@
 class Eval:
+    """
+        Eval
+    """
     def __init__(self):
         self.predict_num = 0
         self.correct_num = 0
@@ -9,6 +12,9 @@ class Eval:
         self.fscore = 0
 
     def clear(self):
+        """
+        :return:
+        """
         self.predict_num = 0
         self.correct_num = 0
         self.gold_num = 0
@@ -18,6 +24,9 @@ class Eval:
         self.fscore = 0
 
     def getFscore(self):
+        """
+        :return:
+        """
         if self.predict_num == 0:
             self.precision = 0
         else:
@@ -36,4 +45,7 @@ class Eval:
         return self.precision, self.recall, self.fscore
 
     def acc(self):
+        """
+        :return:
+        """
         return self.correct_num / self.gold_num

@@ -18,6 +18,9 @@ import pickle
 
 
 class Pickle(object):
+    """
+        Pickle
+    """
     def __init__(self):
         print("Pickle")
         self.obj_count = 0

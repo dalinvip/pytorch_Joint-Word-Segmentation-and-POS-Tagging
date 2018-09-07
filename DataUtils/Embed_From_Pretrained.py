@@ -22,40 +22,14 @@ random.seed(hy.seed_num)
 
 
 def Pretrain_Embed(file, vocab_size, words2id, unk, padding):
-
-    # print("load pretrained embedding from {}".format(file))
-    # f = open(file, encoding='utf-8')
-    # allLines = f.readlines()
-    # indexs = set()
-    # info = allLines[0].strip().split(' ')
-    # embed_dim = len(info) - 1
-    # emb = nn.Embedding(vocab_size, embed_dim)
-    #
-    # # init.uniform(emb.weight, a=-np.sqrt(3 / embed_dim), b=np.sqrt(3 / embed_dim))
-    # oov_emb = torch.zeros(1, embed_dim).type(torch.FloatTensor)
-    # now_line = 0
-    # for line in allLines:
-    #     now_line += 1
-    #     sys.stdout.write("\rhandling with the {} line.".format(now_line))
-    #     info = line.split(" ")
-    #     wordID = words2id[info[0]]
-    #     if wordID >= 0:
-    #         indexs.add(wordID)
-    #         for idx in range(embed_dim):
-    #             val = float(info[idx + 1])
-    #             emb.weight.data[wordID][idx] = val
-    #             # oov_emb[0][idx] += val
-    # f.close()
-    # print("\nhandle finished")
-    #
-    # unkID = words2id[unk]
-    # paddingID = words2id[padding]
-    # for idx in range(embed_dim):
-    #     emb.weight.data[paddingID][idx] = 0
-    #     emb.weight.data[unkID][idx] = 0
-    #
-    # return emb, embed_dim
-
+    """
+    :param file:
+    :param vocab_size:
+    :param words2id:
+    :param unk:
+    :param padding:
+    :return:
+    """
     with open(file, encoding="UTF-8") as f:
         allLines = f.readlines()
         indexs = set()
@@ -97,3 +71,5 @@ def Pretrain_Embed(file, vocab_size, words2id, unk, padding):
     print("oov: ", oov, " total: ", vocab_size, "oov ratio: ", oov / vocab_size)
     print("oov ", unk, "use avg value initialize")
     return emb, embDim
+
+

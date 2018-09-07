@@ -199,6 +199,17 @@ class Train(object):
         print("Test Time {:.4f}".format(eval_end_time - eval_start_time))
 
     def eval_batch(self, data_iter, model, eval_seg, eval_pos, best_score, epoch, config, test=False):
+        """
+        :param data_iter:  eval data iterator
+        :param model:  nn model
+        :param eval_seg:  seg eval
+        :param eval_pos:  pos eval
+        :param best_score:  best score
+        :param epoch:  current epoch
+        :param config:  config
+        :param test:  test
+        :return:
+        """
         model.eval()
         for batch_features in data_iter:
             decoder_out, state = model(batch_features, train=False)

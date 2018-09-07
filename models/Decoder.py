@@ -23,6 +23,9 @@ random.seed(seed_num)
 
 
 class Decoder(nn.Module):
+    """
+        Decoder
+    """
 
     def __init__(self, config):
         super(Decoder, self).__init__()
@@ -63,6 +66,10 @@ class Decoder(nn.Module):
             self.bucket_rnn = self.bucket_rnn.cuda()
 
     def init_hidden_cell(self, batch_size):
+        """
+        :param batch_size:  batch size
+        :return:
+        """
         z_bucket = Variable(torch.zeros(batch_size, self.config.rnn_dim))
         h_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
         c_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
@@ -73,6 +80,12 @@ class Decoder(nn.Module):
         return h_bucket, c_bucket, z_bucket
 
     def forward(self, features, encoder_out, train=False):
+        """
+        :param features:
+        :param encoder_out:  Encoder output
+        :param train:  train for dropout
+        :return:
+        """
 
         batch_length = features.batch_length
         encoder_out = encoder_out.permute(1, 0, 2)
@@ -97,6 +110,13 @@ class Decoder(nn.Module):
         return decoder_out, state
 
     def batch_wordLstm(self, id_char, batch_length, encoder_out, state):
+        """
+        :param id_char:  id word
+        :param batch_length:  batch count
+        :param encoder_out:  Encoder output
+        :param state:  Decoder state
+        :return:
+        """
         if id_char is 0:
             h, c, z = self.init_hidden_cell(batch_length)
         else:
@@ -106,7 +126,6 @@ class Decoder(nn.Module):
             if self.config.use_cuda is True:  last_pos = last_pos.cuda()
             pos_id_array = np.array(state.pos_id[-1])
             last_pos.data.copy_(torch.from_numpy(pos_id_array))
-            # print(last_pos)
             last_pos_embed = self.dropout(self.pos_embed(last_pos))
 
             # copy with the word features
@@ -134,6 +153,16 @@ class Decoder(nn.Module):
         return h_now, c_now
 
     def batch_action(self, state, index, output, hidden_now, cell_now, batch_length, train):
+        """
+        :param state:  decoder state
+        :param index:  index
+        :param output:  output
+        :param hidden_now:  lstm hidden
+        :param cell_now:  lstm cell
+        :param batch_length:  batch count
+        :param train:  train for decoder
+        :return:
+        """
         action = []
         if train:
             for i in range(batch_length):

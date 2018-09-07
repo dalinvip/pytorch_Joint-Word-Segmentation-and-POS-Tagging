@@ -59,7 +59,8 @@ class DataLoaderHelp(object):
                 new_word += char
         return new_word
 
-    def _sort(self, insts, path):
+    @staticmethod
+    def _sort(insts, path):
         """
         :param insts:
         :return:
