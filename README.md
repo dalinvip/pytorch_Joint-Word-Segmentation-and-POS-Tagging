@@ -14,7 +14,16 @@ great interests in the community of Chinese natural language processing (NLP). I
 	(2) python -u main.py --config ./Config/config.cfg --train -p 
 
 # Config
-
+	optimizer: Adam
+	lr: 0.001
+	dropout: 0.25
+	embed_char_dim: 200
+	embed_bichar_dim: 200
+	rnn_dim: 200
+	rnn_hidden_dim: 200
+	pos_dim: 100
+	oov: avg 
+	Refer to config.cfg file for more details.
 
 # Network Structure
 ![](https://i.imgur.com/wIAMutu.png)
