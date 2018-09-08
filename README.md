@@ -23,7 +23,7 @@ great interests in the community of Chinese natural language processing (NLP). I
 
 
 |  | CTB5 | CTB6 | CTB7 |  
-| ------------------------ | ----------------------- | ----------------------- | ----------------------- |  
+| :------------------------: | ----------------------- | ----------------------- | ----------------------- |  
 | **Model** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** |  
 | Our Model (No External Embeddings)  | 88.64&nbsp;&nbsp;&nbsp;&nbsp;88.64 | 87.53&nbsp;&nbsp;&nbsp;&nbsp;88.64 | 88.08&nbsp;&nbsp;&nbsp;&nbsp;88.64 |  
 
