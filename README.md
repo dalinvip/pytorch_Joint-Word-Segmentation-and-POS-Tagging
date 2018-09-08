@@ -21,5 +21,18 @@ great interests in the community of Chinese natural language processing (NLP). I
 
 # Performance
 
+
+# Cite
+	@Article{zhang2018jointposseg,  
+	  author    = {Zhang, Meishan and Yu, Nan and Fu, Guohong},  
+	  title     = {A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging},  
+	  journal   = {IEEE/ACM Transactions on Audio, Speech and Language Processing (TASLP)},  
+	  year      = {2018},  
+	  volume    = {26},  
+	  number    = {9},
+	  pages     = {1528--1538},
+	  publisher = {IEEE Press},
+	}
+
 # Schedule
 updating.
