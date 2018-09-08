@@ -23,6 +23,7 @@ great interests in the community of Chinese natural language processing (NLP). I
 	rnn_hidden_dim: 200
 	pos_dim: 100
 	oov: avg 
+	use_cuda： True or False
 	Refer to config.cfg file for more details.
 
 # Network Structure
