@@ -20,9 +20,11 @@ great interests in the community of Chinese natural language processing (NLP). I
 ![](https://i.imgur.com/wIAMutu.png)
 
 # Performance
-| Model | SEG	POS | SEG	POS | SEG	POS |  
+
 
 | Model | CTB5 | CTB6 | CTB7 |  
+| ------------ | ------------ | ------------ | ------------ |  
+|  | SEG	POS | SEG	POS | SEG	POS |  
 | ------------ | ------------ | ------------ | ------------ |  
 | BLSTM | 88.64	88.64 | 87.53	88.64 | 88.08	88.64 |  
 
