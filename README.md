@@ -8,11 +8,18 @@ great interests in the community of Chinese natural language processing (NLP). I
 	PyTorch == 0.3.1
 
 # Usage  
-
+	modify the config file, detail see the Config directory
 	Train:
 	(1) sh run_train_p.sh
-	(2) python -u main_hyperparams.py --config ./Config/config.cfg --train -p 
+	(2) python -u main.py --config ./Config/config.cfg --train -p 
 
+# Config
+
+
+# Network Structure
+![](https://i.imgur.com/wIAMutu.png)
+
+# Performance
 
 # Schedule
 updating.
