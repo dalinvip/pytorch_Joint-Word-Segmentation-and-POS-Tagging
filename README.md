@@ -21,7 +21,6 @@ great interests in the community of Chinese natural language processing (NLP). I
 
 # Performance
 
-
 |  | CTB5 | CTB6 | CTB7 | PKU | NCC |   
 | :----------: | ---------- | ---------- | ---------- | ---------- | ---------- |     
 | **Model** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** |  **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** |  
@@ -46,5 +45,7 @@ great interests in the community of Chinese natural language processing (NLP). I
 	  publisher = {IEEE Press},
 	}
 
-# Schedule
-updating.
+# Question #
+- if you have any question, you can open a issue or email `mason.zms@gmail.com`、`yunan.hlju@gmail.com`、`bamtercelboo@{gmail.com, 163.com}`.
+
+- if you have any good suggestions, you can PR or email me.
