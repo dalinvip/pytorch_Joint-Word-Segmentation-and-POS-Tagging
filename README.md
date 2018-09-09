@@ -1,4 +1,4 @@
-# JointPS: [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://zhangmeishan.github.io/ChineseLexicalProcessing.pdf)
+# JointPS: [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/document/8351918/)
 In this paper, we present a simple yet effective sequence-to-sequence neural model for the joint task, based on a well-defined transition system, by using long short term memory (LSTM) neural network structures.   
 
 
