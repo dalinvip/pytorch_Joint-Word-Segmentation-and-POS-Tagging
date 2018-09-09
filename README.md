@@ -1,7 +1,7 @@
 # JointPS
 A re-implementation of [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8351918) based on Pytorch.
 
-# Requirement:
+# Requirement
 	Python  == 3  
 	PyTorch == 0.3.1
 
