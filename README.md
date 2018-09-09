@@ -35,11 +35,9 @@ great interests in the community of Chinese natural language processing (NLP). I
 | :----------: | ---------- | ---------- | ---------- | ---------- | ---------- |     
 | **Model** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** | **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** |  **SEG**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**POS** |  
 | Our Model (No External Embeddings)  | 97.69&nbsp;&nbsp;&nbsp;&nbsp;94.16 | 95.37&nbsp;&nbsp;&nbsp;&nbsp;90.83 | 95.32&nbsp;&nbsp;&nbsp;&nbsp;90.25 | 95.22&nbsp;&nbsp;&nbsp;&nbsp;92.62 | 93.97&nbsp;&nbsp;&nbsp;&nbsp;89.47 |     
-| Pipeline (No External Embeddings)  | 97.15&nbsp;&nbsp;&nbsp;&nbsp;93.72 | 94.85&nbsp;&nbsp;&nbsp;&nbsp;90.08 | 94.71&nbsp;&nbsp;&nbsp;&nbsp;89.56 | 94.86&nbsp;&nbsp;&nbsp;&nbsp;91.84 | 93.54&nbsp;&nbsp;&nbsp;&nbsp;88.52 |    
 | Our Model (Basic Embeddings)  | 97.93&nbsp;&nbsp;&nbsp;&nbsp;94.44 | 95.78&nbsp;&nbsp;&nbsp;&nbsp;91.79 | 95.77&nbsp;&nbsp;&nbsp;&nbsp;91.12 | 95.82&nbsp;&nbsp;&nbsp;&nbsp;93.42 | 94.52&nbsp;&nbsp;&nbsp;&nbsp;89.82 |      
-| Pipeline (Basic Embeddings)   | 97.50&nbsp;&nbsp;&nbsp;&nbsp;94.01 | 95.58&nbsp;&nbsp;&nbsp;&nbsp;91.35 | 95.36&nbsp;&nbsp;&nbsp;&nbsp;90.78 | 95.55&nbsp;&nbsp;&nbsp;&nbsp;93.00 | 94.17&nbsp;&nbsp;&nbsp;&nbsp;89.25 |      
 |**Our Model (Word-context Embeddings)**   | **98.50**&nbsp;&nbsp;&nbsp;&nbsp;**94.95** |**96.36**&nbsp;&nbsp;&nbsp;&nbsp;**92.51** | **96.25**&nbsp;&nbsp;&nbsp;&nbsp;**91.87** | **96.35**&nbsp;&nbsp;&nbsp;&nbsp;**94.14** | **95.30**&nbsp;&nbsp;&nbsp;&nbsp;**90.42** |      
-| Pipeline (Word-context Embeddings)  | 98.34&nbsp;&nbsp;&nbsp;&nbsp;94.52 | 96.21&nbsp;&nbsp;&nbsp;&nbsp;91.99 | 96.01&nbsp;&nbsp;&nbsp;&nbsp;91.36 | 96.17&nbsp;&nbsp;&nbsp;&nbsp;93.87 | 94.88&nbsp;&nbsp;&nbsp;&nbsp;89.92 |   
+
 
 
 
