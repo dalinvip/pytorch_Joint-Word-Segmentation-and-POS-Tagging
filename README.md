@@ -1,6 +1,8 @@
 # JointPS
 A re-implementation of [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8351918) based on Pytorch.
 
+The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTranJSTagger).
+
 # Requirement
 	pip3 install -r requirements.txt
 	Python  == 3  
