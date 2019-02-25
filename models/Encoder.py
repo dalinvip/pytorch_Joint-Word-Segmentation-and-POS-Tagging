@@ -94,7 +94,7 @@ class Encoder(nn.Module):
         :param batch:  batch size
         :return:
         """
-        if self.config.use_cuda is True:
+        if self.config.device != cpu_device:
             return (torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda(),
                     torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda())
         else:

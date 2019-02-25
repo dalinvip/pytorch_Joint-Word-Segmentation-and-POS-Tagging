@@ -292,14 +292,6 @@ class Configurable(myconf):
         return self._config.getint("Train", "num_threads")
 
     @property
-    def use_cuda(self):
-        return self._config.getboolean("Train", "use_cuda")
-
-    @property
-    def set_use_cuda(self, use_cuda):
-        self._config.set("Train", "use_cuda", use_cuda)
-
-    @property
     def epochs(self):
         return self._config.getint("Train", "epochs")
 

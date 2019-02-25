@@ -61,7 +61,7 @@ class Decoder(nn.Module):
 
         self.bucket = Variable(torch.zeros(1, self.config.label_size))
         self.bucket_rnn = Variable(torch.zeros(1, self.config.rnn_hidden_dim))
-        if self.config.use_cuda is True:
+        if self.config.device != cpu_device:
             self.bucket = self.bucket.cuda()
             self.bucket_rnn = self.bucket_rnn.cuda()
 
@@ -73,7 +73,7 @@ class Decoder(nn.Module):
         z_bucket = Variable(torch.zeros(batch_size, self.config.rnn_dim))
         h_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
         c_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
-        if self.config.use_cuda is True:
+        if self.config.device != cpu_device:
             z_bucket = z_bucket.cuda()
             h_bucket = h_bucket.cuda()
             c_bucket = c_bucket.cuda()
@@ -123,7 +123,8 @@ class Decoder(nn.Module):
             h, c = state.word_hiddens[-1], state.word_cells[-1]
             # copy with the pos features
             last_pos = Variable(torch.zeros(batch_length)).type(torch.LongTensor)
-            if self.config.use_cuda is True:  last_pos = last_pos.cuda()
+            if self.config.device != cpu_device:
+                last_pos = last_pos.cuda()
             pos_id_array = np.array(state.pos_id[-1])
             last_pos.data.copy_(torch.from_numpy(pos_id_array))
             last_pos_embed = self.dropout(self.pos_embed(last_pos))
@@ -135,7 +136,7 @@ class Decoder(nn.Module):
                 last_word_len = 0
                 if id_batch_value is -1:
                     word_bucket = Variable(torch.zeros(1, 2 * self.config.rnn_hidden_dim))
-                    if self.config.use_cuda is True:
+                    if self.config.device != cpu_device:
                         word_bucket = word_bucket.cuda()
                     batch_char_embed.append(word_bucket)
                     continue

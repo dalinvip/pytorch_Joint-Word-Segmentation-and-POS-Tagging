@@ -282,7 +282,7 @@ class Iterators:
         features.static_bichar_right_features = batch_static_bichar_right_features
         features.gold_features = batch_gold_features
 
-        if self.config.use_cuda is True:
+        if self.config.device != cpu_device:
             features.cuda(features)
         return features
 
