@@ -12,6 +12,8 @@
 seed_num = 233
 unkkey = "<unk>"
 paddingkey = "<pad>"
+cpu_device = "cpu"
+shuffle = "shuffle"
 nullkey = '-NULL-'
 sep = 'SEP'
 app = 'APP'

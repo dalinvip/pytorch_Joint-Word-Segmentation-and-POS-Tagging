@@ -105,6 +105,8 @@ def parse_argument():
     parser = argparse.ArgumentParser(description="NER & POS")
     parser.add_argument("-c", "--config", dest="config_file", type=str, default="./Config/config.cfg",
                         help="config path")
+    parser.add_argument("-device", "--device", dest="device", type=str, default="cpu",
+                        help="device[‘cpu’,‘cuda:0’,‘cuda:1’,......]")
     parser.add_argument("--train", dest="train", action="store_true", default=True, help="train model")
     parser.add_argument("-p", "--process", dest="process", action="store_true", default=True, help="data process")
     parser.add_argument("-t", "--test", dest="test", action="store_true", default=False, help="test model")
@@ -115,6 +117,7 @@ def parse_argument():
     args = parser.parse_args()
     # print(vars(args))
     config = configurable.Configurable(config_file=args.config_file)
+    config.device = args.device
     config.train = args.train
     config.process = args.process
     config.test = args.test
@@ -130,6 +133,7 @@ def parse_argument():
         print("t_data : {}, not in [None, 'train', 'dev', 'test']".format(config.t_data))
         exit()
     print("***************************************")
+    print("Device : {}".format(config.device))
     print("Data Process : {}".format(config.process))
     print("Train model : {}".format(config.train))
     print("Test model : {}".format(config.test))
@@ -145,8 +149,11 @@ if __name__ == "__main__":
 
     print("Process ID {}, Process Parent ID {}".format(os.getpid(), os.getppid()))
     config = parse_argument()
-    if config.use_cuda is True:
+    if config.device != cpu_device:
         print("Using GPU To Train......")
+        device_number = config.device[-1]
+        torch.cuda.set_device(int(device_number))
+        print("Current Cuda Device {}".format(torch.cuda.current_device()))
         # torch.backends.cudnn.enabled = True
         # torch.backends.cudnn.deterministic = True
         torch.cuda.manual_seed(seed_num)

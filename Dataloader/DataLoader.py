@@ -77,6 +77,11 @@ class DataLoaderHelp(object):
         return sorted_insts
 
     def _sort2file(self, insts, path):
+        """
+        :param insts:
+        :param path:
+        :return:
+        """
         print("Sort Result To File.")
         # path = path + "_sort.txt"
         print(path)
