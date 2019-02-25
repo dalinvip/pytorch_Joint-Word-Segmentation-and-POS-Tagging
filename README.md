@@ -1,7 +1,7 @@
 # JointPS
-A re-implementation of [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8351918) based on Pytorch.
+A re-implementation of [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8351918) based on PyTorch.
 
-The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTranJSTagger).  
+The C++ Code [[zhangmeishan/NNTranJSTagger](https://github.com/zhangmeishan/NNTranJSTagger)].  
 
 PyTorch-0.3.1 Code release on here. [[PyTorch-0.3.1](https://github.com/bamtercelboo/pytorch_Joint-Word-Segmentation-and-POS-Tagging/releases/tag/PyTorch-0.3.1)]  
 
@@ -15,6 +15,7 @@ PyTorch-0.3.1 Code release on here. [[PyTorch-0.3.1](https://github.com/bamterce
 	Train:
 	(1) sh run_train_p.sh
 	(2) python -u main.py --config ./Config/config.cfg --device cuda:0--train -p 
+	      [device: "cpu", "cuda:0", "cuda:1", ......]
 
 # Config
 	optimizer: Adam
