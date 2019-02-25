@@ -1,18 +1,20 @@
 # JointPS
 A re-implementation of [A Simple and Effective Neural Model for Joint Word Segmentation and POS Tagging](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8351918) based on Pytorch.
 
-The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTranJSTagger).
+The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTranJSTagger).  
+
+PyTorch-0.3.1 Code release on here. [[PyTorch-0.3.1](https://github.com/bamtercelboo/pytorch_Joint-Word-Segmentation-and-POS-Tagging/releases/tag/PyTorch-0.3.1)]  
 
 # Requirement
 	pip3 install -r requirements.txt
-	Python  == 3  
-	PyTorch == 0.3.1
+	Python  == 3.6  
+	PyTorch == 1.0.1
 
 # Usage  
 	modify the config file, detail see the Config directory
 	Train:
 	(1) sh run_train_p.sh
-	(2) python -u main.py --config ./Config/config.cfg --train -p 
+	(2) python -u main.py --config ./Config/config.cfg --device cuda:0--train -p 
 
 # Config
 	optimizer: Adam
@@ -24,7 +26,6 @@ The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTra
 	rnn_hidden_dim: 200
 	pos_dim: 100
 	oov: avg 
-	use_cuda： True or False
 	Refer to config.cfg file for more details.
 
 # Network Structure
@@ -55,6 +56,6 @@ The C++ code [bamtercelboo/NNTranJSTagger](https://github.com/bamtercelboo/NNTra
 	}
 
 # Question #
-- if you have any question, you can open a issue or email `mason.zms@gmail.com`、`yunan.hlju@gmail.com`、`bamtercelboo@{gmail.com, 163.com}`.
+- if you have any question, you can open a issue or email **mason.zms@gmail.com**、**yunan.hlju@gmail.com**、**bamtercelboo@{gmail.com, 163.com}**.
 
 - if you have any good suggestions, you can PR or email me.
