@@ -56,8 +56,10 @@ class Iterators:
     """
     Iterators
     """
-    def __init__(self, batch_size=None, data=None, operator=None, operator_static=None, config=None):
+    def __init__(self, batch_size=None, data=None, operator=None, operator_static=None,
+                 device=None, config=None):
         self.config = config
+        self.device = device
         self.batch_size = batch_size
         self.data = data
         self.operator = operator
@@ -81,7 +83,8 @@ class Iterators:
             print("*****************    create {} iterator    **************".format(id_data + 1))
             self._convert_word2id(self.data[id_data], self.operator, self.operator_static)
             self.features = self._Create_Each_Iterator(insts=self.data[id_data], batch_size=self.batch_size[id_data],
-                                                       operator=self.operator, operator_static=self.operator_static)
+                                                       operator=self.operator, operator_static=self.operator_static,
+                                                       device=self.device)
             self.data_iter.append(self.features)
             self.features = []
         if len(self.data_iter) == 2:
@@ -150,7 +153,7 @@ class Iterators:
                 goldID = operator.label_alphabet.loadWord2idAndId2Word(gold)
                 inst.gold_index.append(goldID)
 
-    def _Create_Each_Iterator(self, insts, batch_size, operator, operator_static):
+    def _Create_Each_Iterator(self, insts, batch_size, operator, operator_static, device):
         """
         :param insts:
         :param batch_size:
@@ -165,13 +168,13 @@ class Iterators:
             # print(batch)
             if len(batch) == batch_size or count_inst == len(insts):
                 one_batch = self._Create_Each_Batch(insts=batch, batch_size=batch_size, operator=operator,
-                                                    operator_static=operator_static)
+                                                    operator_static=operator_static, device=device)
                 self.features.append(one_batch)
                 batch = []
         print("The all data has created iterator.")
         return self.features
 
-    def _Create_Each_Batch(self, insts, batch_size, operator, operator_static):
+    def _Create_Each_Batch(self, insts, batch_size, operator, operator_static, device):
         """
         :param insts:
         :param batch_size:
@@ -203,20 +206,27 @@ class Iterators:
 
         # create with the Tensor/Variable
         # word features
-        batch_word_features = Variable(torch.zeros(batch_length, max_word_size).type(torch.LongTensor))
-        batch_pos_features = Variable(torch.zeros(batch_length, max_word_size).type(torch.LongTensor))
+        # batch_word_features = Variable(torch.zeros(batch_length, max_word_size).type(torch.LongTensor))
+        # batch_pos_features = Variable(torch.zeros(batch_length, max_word_size).type(torch.LongTensor))
+        batch_word_features = torch.zeros(batch_length, max_word_size, device=cpu_device, requires_grad=True).long()
+        batch_pos_features = torch.zeros(batch_length, max_word_size, device=cpu_device, requires_grad=True).long()
 
-        batch_char_features = Variable(torch.zeros(batch_length, max_char_size).type(torch.LongTensor))
-        batch_bichar_left_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
-        batch_bichar_right_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        # batch_char_features = Variable(torch.zeros(batch_length, max_char_size).type(torch.LongTensor))
+        # batch_bichar_left_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        # batch_bichar_right_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        batch_char_features = torch.zeros(batch_length, max_char_size, device=cpu_device, requires_grad=True).long()
+        batch_bichar_left_features = torch.zeros(batch_length, max_bichar_size, device=cpu_device, requires_grad=True).long()
+        batch_bichar_right_features = torch.zeros(batch_length, max_bichar_size, device=cpu_device, requires_grad=True).long()
 
-        batch_static_char_features = Variable(torch.zeros(batch_length, max_char_size).type(torch.LongTensor))
-        batch_static_bichar_left_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
-        batch_static_bichar_right_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        # batch_static_char_features = Variable(torch.zeros(batch_length, max_char_size).type(torch.LongTensor))
+        # batch_static_bichar_left_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        # batch_static_bichar_right_features = Variable(torch.zeros(batch_length, max_bichar_size).type(torch.LongTensor))
+        batch_static_char_features = torch.zeros(batch_length, max_char_size, device=cpu_device, requires_grad=True).long()
+        batch_static_bichar_left_features = torch.zeros(batch_length, max_bichar_size, device=cpu_device, requires_grad=True).long()
+        batch_static_bichar_right_features = torch.zeros(batch_length, max_bichar_size, device=cpu_device, requires_grad=True).long()
 
-        batch_gold_features = Variable(torch.zeros(max_gold_size * batch_length).type(torch.LongTensor))
-
-        # print(batch_gold_features)
+        # batch_gold_features = Variable(torch.zeros(max_gold_size * batch_length).type(torch.LongTensor))
+        batch_gold_features = torch.zeros(max_gold_size * batch_length, device=cpu_device, requires_grad=True).long()
 
         for id_inst in range(batch_length):
             inst = insts[id_inst]
@@ -285,18 +295,4 @@ class Iterators:
         if self.config.device != cpu_device:
             features.cuda(features)
         return features
-
-    @staticmethod
-    def _prepare_pack_padded_sequence(inputs_words, seq_lengths, descending=True):
-        """
-        :param inputs_words:
-        :param seq_lengths:
-        :param descending:
-        :return:
-        """
-        sorted_seq_lengths, indices = torch.sort(torch.LongTensor(seq_lengths), descending=descending)
-        _, desorted_indices = torch.sort(indices, descending=False)
-        sorted_inputs_words = inputs_words[indices]
-        return sorted_inputs_words, sorted_seq_lengths.numpy(), desorted_indices
-
 

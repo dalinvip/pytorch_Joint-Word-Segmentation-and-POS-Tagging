@@ -11,8 +11,6 @@
 
 import torch.nn
 import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
 import torch.nn.init as init
 import numpy as np
 import random
@@ -29,6 +27,7 @@ class Encoder(nn.Module):
     def __init__(self, config):
         super(Encoder, self).__init__()
         self.config = config
+        self.device = config.device
 
         # random
         self.char_embed = nn.Embedding(self.config.embed_char_num, self.config.embed_char_dim, sparse=False,
@@ -43,11 +42,11 @@ class Encoder(nn.Module):
         self.static_char_embed = nn.Embedding(self.config.static_embed_char_num, self.config.embed_char_dim, sparse=False,
                                               padding_idx=self.config.static_char_paddingId)
         init.uniform_(self.static_char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
-                     b=np.sqrt(3 / self.config.embed_char_dim))
+                      b=np.sqrt(3 / self.config.embed_char_dim))
         self.static_bichar_embed = nn.Embedding(self.config.static_embed_bichar_num, self.config.embed_bichar_dim, sparse=False,
                                                 padding_idx=self.config.static_bichar_paddingId)
         init.uniform_(self.static_bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
-                     b=np.sqrt(3 / self.config.embed_bichar_dim))
+                      b=np.sqrt(3 / self.config.embed_bichar_dim))
 
         # load external word embedding
         if config.char_pretrained_embed is True:
@@ -94,12 +93,8 @@ class Encoder(nn.Module):
         :param batch:  batch size
         :return:
         """
-        if self.config.device != cpu_device:
-            return (torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda(),
-                    torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)).cuda())
-        else:
-            return (torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)),
-                    torch.autograd.Variable(torch.zeros(batch, self.config.rnn_hidden_dim)))
+        return ((torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)),
+                (torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)))
 
     # @time
     def forward(self, features):

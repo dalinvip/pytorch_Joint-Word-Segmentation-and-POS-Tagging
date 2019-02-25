@@ -100,6 +100,7 @@ class Embed(object):
                 self.fuzzy_count += 1
             else:
                 self.oov_count += 1
+        embeddings[self.padID] = 0
         final_embed = torch.from_numpy(embeddings).float()
         return final_embed
 

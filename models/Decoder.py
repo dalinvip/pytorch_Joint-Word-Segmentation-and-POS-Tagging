@@ -12,8 +12,8 @@
 import torch.nn
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.autograd import Variable
 import torch.nn.init as init
+
 import numpy as np
 import random
 from DataUtils.state import state_batch_instance
@@ -30,6 +30,7 @@ class Decoder(nn.Module):
     def __init__(self, config):
         super(Decoder, self).__init__()
         self.config = config
+        self.device = config.device
 
         self.pos_paddingKey = self.config.create_alphabet.pos_PaddingID
 
@@ -39,7 +40,8 @@ class Decoder(nn.Module):
         self.lstmcell.bias_hh.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
         self.lstmcell.bias_ih.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
 
-        self.pos_embed = nn.Embedding(num_embeddings=self.config.pos_size, embedding_dim=self.config.pos_dim)
+        self.pos_embed = nn.Embedding(num_embeddings=self.config.pos_size, embedding_dim=self.config.pos_dim,
+                                      padding_idx=self.pos_paddingKey)
         init.uniform_(self.pos_embed.weight, a=-np.sqrt(3 / self.config.pos_dim), b=np.sqrt(3 / self.config.pos_dim))
         for i in range(self.config.pos_dim):
             self.pos_embed.weight.data[self.pos_paddingKey][i] = 0
@@ -59,24 +61,17 @@ class Decoder(nn.Module):
 
         self.softmax = nn.LogSoftmax(dim=1)
 
-        self.bucket = Variable(torch.zeros(1, self.config.label_size))
-        self.bucket_rnn = Variable(torch.zeros(1, self.config.rnn_hidden_dim))
-        if self.config.device != cpu_device:
-            self.bucket = self.bucket.cuda()
-            self.bucket_rnn = self.bucket_rnn.cuda()
+        self.bucket = torch.zeros(1, self.config.label_size, device=self.device, requires_grad=True)
+        self.bucket_rnn = torch.zeros(1, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
 
     def init_hidden_cell(self, batch_size):
         """
         :param batch_size:  batch size
         :return:
         """
-        z_bucket = Variable(torch.zeros(batch_size, self.config.rnn_dim))
-        h_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
-        c_bucket = Variable(torch.zeros(batch_size, self.config.rnn_hidden_dim))
-        if self.config.device != cpu_device:
-            z_bucket = z_bucket.cuda()
-            h_bucket = h_bucket.cuda()
-            c_bucket = c_bucket.cuda()
+        z_bucket = torch.zeros(batch_size, self.config.rnn_dim, device=self.device, requires_grad=True)
+        h_bucket = torch.zeros(batch_size, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
+        c_bucket = torch.zeros(batch_size, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
         return h_bucket, c_bucket, z_bucket
 
     def forward(self, features, encoder_out, train=False):
@@ -122,9 +117,7 @@ class Decoder(nn.Module):
         else:
             h, c = state.word_hiddens[-1], state.word_cells[-1]
             # copy with the pos features
-            last_pos = Variable(torch.zeros(batch_length)).type(torch.LongTensor)
-            if self.config.device != cpu_device:
-                last_pos = last_pos.cuda()
+            last_pos = torch.zeros(batch_length, device=self.device, requires_grad=True).long()
             pos_id_array = np.array(state.pos_id[-1])
             last_pos.data.copy_(torch.from_numpy(pos_id_array))
             last_pos_embed = self.dropout(self.pos_embed(last_pos))
@@ -135,9 +128,7 @@ class Decoder(nn.Module):
                 chars_embed = []
                 last_word_len = 0
                 if id_batch_value is -1:
-                    word_bucket = Variable(torch.zeros(1, 2 * self.config.rnn_hidden_dim))
-                    if self.config.device != cpu_device:
-                        word_bucket = word_bucket.cuda()
+                    word_bucket = torch.zeros(1, 2 * self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
                     batch_char_embed.append(word_bucket)
                     continue
                 last_word_len = id_char - id_batch_value

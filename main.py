@@ -1,11 +1,11 @@
 # @Author : bamtercelboo
 # @Datetime : 2018/1/30 19:50
-# @File : main_hyperparams.py.py
+# @File : main.py
 # @Last Modify Time : 2018/1/30 19:50
 # @Contact : bamtercelboo@{gmail.com, 163.com}
 
 """
-    FILE :  main_hyperparams.py.py
+    FILE :  main.py
     FUNCTION : main
 """
 
@@ -105,7 +105,7 @@ def parse_argument():
     parser = argparse.ArgumentParser(description="NER & POS")
     parser.add_argument("-c", "--config", dest="config_file", type=str, default="./Config/config.cfg",
                         help="config path")
-    parser.add_argument("-device", "--device", dest="device", type=str, default="cpu",
+    parser.add_argument("-device", "--device", dest="device", type=str, default="cuda:0",
                         help="device[‘cpu’,‘cuda:0’,‘cuda:1’,......]")
     parser.add_argument("--train", dest="train", action="store_true", default=True, help="train model")
     parser.add_argument("-p", "--process", dest="process", action="store_true", default=True, help="data process")
