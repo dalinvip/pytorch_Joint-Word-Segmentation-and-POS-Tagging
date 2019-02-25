@@ -34,13 +34,13 @@ class Decoder(nn.Module):
         self.pos_paddingKey = self.config.create_alphabet.pos_PaddingID
 
         self.lstmcell = nn.LSTMCell(input_size=self.config.rnn_dim, hidden_size=self.config.rnn_dim, bias=True)
-        init.xavier_uniform(self.lstmcell.weight_ih)
-        init.xavier_uniform(self.lstmcell.weight_hh)
+        init.xavier_uniform_(self.lstmcell.weight_ih)
+        init.xavier_uniform_(self.lstmcell.weight_hh)
         self.lstmcell.bias_hh.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
         self.lstmcell.bias_ih.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
 
         self.pos_embed = nn.Embedding(num_embeddings=self.config.pos_size, embedding_dim=self.config.pos_dim)
-        init.uniform(self.pos_embed.weight, a=-np.sqrt(3 / self.config.pos_dim), b=np.sqrt(3 / self.config.pos_dim))
+        init.uniform_(self.pos_embed.weight, a=-np.sqrt(3 / self.config.pos_dim), b=np.sqrt(3 / self.config.pos_dim))
         for i in range(self.config.pos_dim):
             self.pos_embed.weight.data[self.pos_paddingKey][i] = 0
         self.pos_embed.weight.requires_grad = True
@@ -51,8 +51,8 @@ class Decoder(nn.Module):
         self.combine_linear = nn.Linear(in_features=self.config.rnn_hidden_dim * 2 + self.config.pos_dim,
                                         out_features=self.config.rnn_dim, bias=True)
 
-        init.xavier_uniform(self.linear.weight)
-        init.xavier_uniform(self.combine_linear.weight)
+        init.xavier_uniform_(self.linear.weight)
+        init.xavier_uniform_(self.combine_linear.weight)
         self.combine_linear.bias.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
 
         self.dropout = nn.Dropout(self.config.dropout)
@@ -147,7 +147,7 @@ class Decoder(nn.Module):
                 batch_char_embed.append(last_word_embed)
             batch_char_embed = torch.cat(batch_char_embed, 0)
             concat = torch.cat((last_pos_embed, batch_char_embed), 1)
-            z = self.dropout(F.tanh(self.combine_linear(concat)))
+            z = self.dropout(torch.tanh(self.combine_linear(concat)))
         h_now, c_now = self.lstmcell(z, (h, c))
 
         return h_now, c_now

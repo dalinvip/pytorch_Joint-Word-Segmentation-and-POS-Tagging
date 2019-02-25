@@ -53,9 +53,9 @@ class Train(object):
         self.optimizer = Optimizer(name=self.config.learning_algorithm, model=self.model, lr=self.config.learning_rate,
                                    weight_decay=self.config.weight_decay, grad_clip=self.config.clip_max_norm)
         if self.config.learning_algorithm == "SGD":
-            self.loss_function = nn.CrossEntropyLoss(size_average=False)
+            self.loss_function = nn.CrossEntropyLoss(reduction="sum")
         else:
-            self.loss_function = nn.CrossEntropyLoss(size_average=True)
+            self.loss_function = nn.CrossEntropyLoss(reduction="mean")
         print(self.optimizer)
         self.best_score = Best_Result()
         self.train_eval, self.dev_eval_seg, self.dev_eval_pos, self.test_eval_seg, self.test_eval_pos = Eval(), Eval(), Eval(), Eval(), Eval()

@@ -42,11 +42,11 @@ class Encoder(nn.Module):
         # fix the word embedding
         self.static_char_embed = nn.Embedding(self.config.static_embed_char_num, self.config.embed_char_dim, sparse=False,
                                               padding_idx=self.config.static_char_paddingId)
-        init.uniform(self.static_char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
+        init.uniform_(self.static_char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
                      b=np.sqrt(3 / self.config.embed_char_dim))
         self.static_bichar_embed = nn.Embedding(self.config.static_embed_bichar_num, self.config.embed_bichar_dim, sparse=False,
                                                 padding_idx=self.config.static_bichar_paddingId)
-        init.uniform(self.static_bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
+        init.uniform_(self.static_bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
                      b=np.sqrt(3 / self.config.embed_bichar_dim))
 
         # load external word embedding
@@ -67,10 +67,10 @@ class Encoder(nn.Module):
         self.lstm_right = nn.LSTMCell(input_size=self.config.rnn_dim, hidden_size=self.config.rnn_hidden_dim, bias=True)
 
         # init lstm weight and bias
-        init.xavier_uniform(self.lstm_left.weight_ih)
-        init.xavier_uniform(self.lstm_left.weight_hh)
-        init.xavier_uniform(self.lstm_right.weight_ih)
-        init.xavier_uniform(self.lstm_right.weight_hh)
+        init.xavier_uniform_(self.lstm_left.weight_ih)
+        init.xavier_uniform_(self.lstm_left.weight_hh)
+        init.xavier_uniform_(self.lstm_right.weight_ih)
+        init.xavier_uniform_(self.lstm_right.weight_hh)
         value = np.sqrt(6 / (self.config.rnn_hidden_dim + 1))
         self.lstm_left.bias_hh.data.uniform_(-value, value)
         self.lstm_left.bias_ih.data.uniform_(-value, value)
@@ -85,7 +85,7 @@ class Encoder(nn.Module):
         self.liner = nn.Linear(in_features=self.input_dim, out_features=self.config.rnn_dim, bias=True)
 
         # init linear
-        init.xavier_uniform(self.liner.weight)
+        init.xavier_uniform_(self.liner.weight)
         init_linear_value = np.sqrt(6 / (self.config.rnn_dim + 1))
         self.liner.bias.data.uniform_(-init_linear_value, init_linear_value)
 
@@ -133,10 +133,10 @@ class Encoder(nn.Module):
         right_concat = torch.cat((char_features, static_char_features, bichar_right_features, static_bichar_r_features), 2)
 
         # non-linear
-        left_concat_non_linear = self.dropout(F.tanh(self.liner(left_concat)))
+        left_concat_non_linear = self.dropout(torch.tanh(self.liner(left_concat)))
         left_concat_input = left_concat_non_linear.permute(1, 0, 2)
 
-        right_concat_non_linear = self.dropout(F.tanh(self.liner(right_concat)))
+        right_concat_non_linear = self.dropout(torch.tanh(self.liner(right_concat)))
         right_concat_input = right_concat_non_linear.permute(1, 0, 2)
 
         left_h, left_c = self.init_cell_hidden(batch_length)
