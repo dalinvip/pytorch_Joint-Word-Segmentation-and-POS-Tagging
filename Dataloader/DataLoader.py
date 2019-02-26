@@ -116,9 +116,9 @@ class DataLoader(DataLoaderHelp):
         for id_data in range(len(path)):
             print("Loading Data Form {}".format(path[id_data]))
             insts = self._Load_Each_Data(path=path[id_data], shuffle=shuffle)
-            if shuffle is True and id_data == 0:
-                print("shuffle train data......")
-                random.shuffle(insts)
+            # if shuffle is True and id_data == 0:
+            print("shuffle train data......")
+            random.shuffle(insts)
             # insts = self._sort(insts, path=path[id_data])
 
             self.data_list.append(insts)

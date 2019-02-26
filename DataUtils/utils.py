@@ -69,6 +69,19 @@ def getMaxindex_batch(model_out):
     return maxIndex_batch
 
 
+def torch_max(output):
+    """
+    :param output: batch * seq_len * label_num
+    :return:
+    """
+    # print(output)
+    batch_size = output.size(0)
+    _, arg_max = torch.max(output, dim=2)
+    label = []
+    for i in range(batch_size):
+        label.append(arg_max[i].cpu().data.numpy().tolist())
+    return label
+
 def save_model_all(model, save_dir, model_name, epoch):
     """
     :param model:  nn model

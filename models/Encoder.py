@@ -15,6 +15,7 @@ import torch.nn.init as init
 import numpy as np
 import random
 from DataUtils.Common import *
+from models.initialize import *
 torch.manual_seed(seed_num)
 random.seed(seed_num)
 
@@ -41,14 +42,12 @@ class Encoder(nn.Module):
         # fix the word embedding
         self.static_char_embed = nn.Embedding(self.config.static_embed_char_num, self.config.embed_char_dim, sparse=False,
                                               padding_idx=self.config.static_char_paddingId)
-        init.uniform_(self.static_char_embed.weight, a=-np.sqrt(3 / self.config.embed_char_dim),
-                      b=np.sqrt(3 / self.config.embed_char_dim))
+        init_embedding(self.static_char_embed.weight, dim=self.config.embed_char_dim)
+
         self.static_bichar_embed = nn.Embedding(self.config.static_embed_bichar_num, self.config.embed_bichar_dim, sparse=False,
                                                 padding_idx=self.config.static_bichar_paddingId)
-        init.uniform_(self.static_bichar_embed.weight, a=-np.sqrt(3 / self.config.embed_bichar_dim),
-                      b=np.sqrt(3 / self.config.embed_bichar_dim))
+        init_embedding(self.static_bichar_embed.weight, dim=self.config.embed_bichar_dim)
 
-        # load external word embedding
         if config.char_pretrained_embed is True:
             self.static_char_embed.weight.data.copy_(self.config.char_pretrain_embed)
             for index in range(self.config.embed_char_dim):
@@ -66,15 +65,17 @@ class Encoder(nn.Module):
         self.lstm_right = nn.LSTMCell(input_size=self.config.rnn_dim, hidden_size=self.config.rnn_hidden_dim, bias=True)
 
         # init lstm weight and bias
-        init.xavier_uniform_(self.lstm_left.weight_ih)
-        init.xavier_uniform_(self.lstm_left.weight_hh)
-        init.xavier_uniform_(self.lstm_right.weight_ih)
-        init.xavier_uniform_(self.lstm_right.weight_hh)
-        value = np.sqrt(6 / (self.config.rnn_hidden_dim + 1))
-        self.lstm_left.bias_hh.data.uniform_(-value, value)
-        self.lstm_left.bias_ih.data.uniform_(-value, value)
-        self.lstm_right.bias_hh.data.uniform_(-value, value)
-        self.lstm_right.bias_ih.data.uniform_(-value, value)
+        init_lstmCell(self.lstm_left, dim=self.config.rnn_hidden_dim)
+        init_lstmCell(self.lstm_right, dim=self.config.rnn_hidden_dim)
+        # init.xavier_uniform_(self.lstm_left.weight_ih)
+        # init.xavier_uniform_(self.lstm_left.weight_hh)
+        # init.xavier_uniform_(self.lstm_right.weight_ih)
+        # init.xavier_uniform_(self.lstm_right.weight_hh)
+        # value = np.sqrt(6 / (self.config.rnn_hidden_dim + 1))
+        # self.lstm_left.bias_hh.data.uniform_(-value, value)
+        # self.lstm_left.bias_ih.data.uniform_(-value, value)
+        # self.lstm_right.bias_hh.data.uniform_(-value, value)
+        # self.lstm_right.bias_ih.data.uniform_(-value, value)
 
         self.dropout = nn.Dropout(self.config.dropout)
         self.dropout_embed = nn.Dropout(self.config.dropout_embed)
@@ -82,19 +83,17 @@ class Encoder(nn.Module):
         self.input_dim = (self.config.embed_char_dim + self.config.embed_bichar_dim) * 2
 
         self.liner = nn.Linear(in_features=self.input_dim, out_features=self.config.rnn_dim, bias=True)
-
-        # init linear
-        init.xavier_uniform_(self.liner.weight)
-        init_linear_value = np.sqrt(6 / (self.config.rnn_dim + 1))
-        self.liner.bias.data.uniform_(-init_linear_value, init_linear_value)
+        init_linear_weight_bias(self.liner)
 
     def init_cell_hidden(self, batch=1):
         """
         :param batch:  batch size
         :return:
         """
-        return ((torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)),
-                (torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)))
+        h = torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
+        c = torch.zeros(batch, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
+        h_c = (h, c)
+        return h_c
 
     # @time
     def forward(self, features):
