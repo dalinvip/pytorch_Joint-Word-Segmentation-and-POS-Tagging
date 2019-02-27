@@ -155,35 +155,35 @@ class CreateAlphabet:
                     self._pos_state[pos] += 1
             # copy with the gold "SEP#PN"
             for gold in data.gold:
-                self.label_alphabet.loadWord2idAndId2Word(gold)
+                self.label_alphabet.from_string(gold)
 
-        self.wordLenAlpha.loadWord2idAndId2Word("0")
-        self.wordLenAlpha.loadWord2idAndId2Word("1")
-        self.wordLenAlpha.loadWord2idAndId2Word("2")
-        self.wordLenAlpha.loadWord2idAndId2Word("3")
-        self.wordLenAlpha.loadWord2idAndId2Word("4")
-        self.wordLenAlpha.loadWord2idAndId2Word("5")
-        self.wordLenAlpha.loadWord2idAndId2Word("6")
+        self.wordLenAlpha.from_string("0")
+        self.wordLenAlpha.from_string("1")
+        self.wordLenAlpha.from_string("2")
+        self.wordLenAlpha.from_string("3")
+        self.wordLenAlpha.from_string("4")
+        self.wordLenAlpha.from_string("5")
+        self.wordLenAlpha.from_string("6")
 
         # Create id2words and words2id by the Alphabet Class
-        self.word_alphabet.initialWord2idAndId2Word(self._word_state)
-        self.char_alphabet.initialWord2idAndId2Word(self._char_state)
-        self.bichar_alphabet.initialWord2idAndId2Word(self._bichar_state)
-        self.pos_alphabet.initialWord2idAndId2Word(self._pos_state)
+        self.word_alphabet.initial(self._word_state)
+        self.char_alphabet.initial(self._char_state)
+        self.bichar_alphabet.initial(self._bichar_state)
+        self.pos_alphabet.initial(self._pos_state)
 
         # unkId and paddingId
-        self.word_UnkkID = self.word_alphabet.loadWord2idAndId2Word(unkkey)
-        self.char_UnkID = self.char_alphabet.loadWord2idAndId2Word(unkkey)
-        self.bichar_UnkID = self.bichar_alphabet.loadWord2idAndId2Word(unkkey)
-        self.pos_UnkID = self.pos_alphabet.loadWord2idAndId2Word(unkkey)
-        self.word_PaddingID = self.word_alphabet.loadWord2idAndId2Word(paddingkey)
-        self.char_PaddingID = self.char_alphabet.loadWord2idAndId2Word(paddingkey)
-        self.bichar_PaddingID = self.bichar_alphabet.loadWord2idAndId2Word(paddingkey)
-        self.pos_PaddingID = self.pos_alphabet.loadWord2idAndId2Word(paddingkey)
+        self.word_UnkkID = self.word_alphabet.from_string(unkkey)
+        self.char_UnkID = self.char_alphabet.from_string(unkkey)
+        self.bichar_UnkID = self.bichar_alphabet.from_string(unkkey)
+        self.pos_UnkID = self.pos_alphabet.from_string(unkkey)
+        self.word_PaddingID = self.word_alphabet.from_string(paddingkey)
+        self.char_PaddingID = self.char_alphabet.from_string(paddingkey)
+        self.bichar_PaddingID = self.bichar_alphabet.from_string(paddingkey)
+        self.pos_PaddingID = self.pos_alphabet.from_string(paddingkey)
 
         # copy the app seq ID
-        self.appID = self.label_alphabet.loadWord2idAndId2Word(app)
-        self.sepID = self.label_alphabet.loadWord2idAndId2Word(sep)
+        self.appID = self.label_alphabet.from_string(app)
+        self.sepID = self.label_alphabet.from_string(sep)
 
         # fix the vocab
         self.word_alphabet.set_fixed_flag(True)
@@ -214,14 +214,14 @@ class Alphabet:
         self.max_cap = 1e8
         self.fixed_vocab = False
 
-    def initialWord2idAndId2Word(self, data):
+    def initial(self, data):
         """
         :param data:
         :return:
         """
         for key in data:
             if data[key] >= self.min_freq:
-                self.loadWord2idAndId2Word(key)
+                self.from_string(key)
         self.set_fixed_flag(True)
 
     def set_fixed_flag(self, bfixed):
@@ -233,7 +233,7 @@ class Alphabet:
         if (not self.fixed_vocab) and (self.vocab_size >= self.max_cap):
             self.fixed_vocab = True
 
-    def loadWord2idAndId2Word(self, string):
+    def from_string(self, string):
         """
         :param string:
         :return:

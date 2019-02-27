@@ -104,21 +104,21 @@ class Iterators:
             # copy with the word and pos
             for index in range(inst.words_size):
                 word = inst.words[index]
-                wordID = operator.word_alphabet.loadWord2idAndId2Word(word)
+                wordID = operator.word_alphabet.from_string(word)
                 if wordID == -1:
                     wordID = operator.word_UnkkID
                 inst.words_index.append(wordID)
 
                 pos = inst.pos[index]
-                posID = operator.pos_alphabet.loadWord2idAndId2Word(pos)
+                posID = operator.pos_alphabet.from_string(pos)
                 if posID == -1:
                     posID = operator.pos_UnkID
                 inst.pos_index.append(posID)
             # copy with the char
             for index in range(inst.chars_size):
                 char = inst.chars[index]
-                charID = operator.char_alphabet.loadWord2idAndId2Word(char)
-                static_charID = operator_static.char_alphabet.loadWord2idAndId2Word(char)
+                charID = operator.char_alphabet.from_string(char)
+                static_charID = operator_static.char_alphabet.from_string(char)
                 if charID == -1:
                     charID = operator.char_UnkID
                 if static_charID == -1:
@@ -128,8 +128,8 @@ class Iterators:
             # copy with the bichar_left
             for index in range(inst.bichars_size):
                 bichar_left = inst.bichars_left[index]
-                bichar_left_ID = operator.bichar_alphabet.loadWord2idAndId2Word(bichar_left)
-                static_bichar_left_ID = operator_static.bichar_alphabet.loadWord2idAndId2Word(bichar_left)
+                bichar_left_ID = operator.bichar_alphabet.from_string(bichar_left)
+                static_bichar_left_ID = operator_static.bichar_alphabet.from_string(bichar_left)
                 if bichar_left_ID == -1:
                     bichar_left_ID = operator.bichar_UnkID
                 if static_bichar_left_ID == -1:
@@ -139,8 +139,8 @@ class Iterators:
             # copy with the bichar_right
             for index in range(inst.bichars_size):
                 bichar_right = inst.bichars_right[index]
-                bichar_right_ID = operator.bichar_alphabet.loadWord2idAndId2Word(bichar_right)
-                static_bichar_right_ID = operator_static.bichar_alphabet.loadWord2idAndId2Word(bichar_right)
+                bichar_right_ID = operator.bichar_alphabet.from_string(bichar_right)
+                static_bichar_right_ID = operator_static.bichar_alphabet.from_string(bichar_right)
                 if bichar_right_ID == -1:
                     bichar_right_ID = operator.bichar_UnkID
                 if static_bichar_right_ID == -1:
@@ -150,7 +150,7 @@ class Iterators:
             # copy with the gold
             for index in range(inst.gold_size):
                 gold = inst.gold[index]
-                goldID = operator.label_alphabet.loadWord2idAndId2Word(gold)
+                goldID = operator.label_alphabet.from_string(gold)
                 inst.gold_index.append(goldID)
 
     def _Create_Each_Iterator(self, insts, batch_size, operator, operator_static, device):

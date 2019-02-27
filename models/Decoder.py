@@ -184,7 +184,7 @@ class Decoder(nn.Module):
                     start_index.append((index + 1) - len(state.words[id_batch][-1]))
                 else:
                     start_index.append(-1)
-                posId = self.config.create_alphabet.pos_alphabet.loadWord2idAndId2Word(posLabel)
+                posId = self.config.create_alphabet.pos_alphabet.from_string(posLabel)
                 pos_id.append(posId)
 
         state.words_startindex.append(start_index)
