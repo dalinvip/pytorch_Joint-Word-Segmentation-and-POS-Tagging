@@ -13,7 +13,6 @@ import torch.nn
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as init
-
 import numpy as np
 import random
 from DataUtils.state import state_batch_instance
@@ -37,31 +36,19 @@ class Decoder(nn.Module):
 
         self.lstmcell = nn.LSTMCell(input_size=self.config.rnn_dim, hidden_size=self.config.rnn_dim, bias=True)
         init_lstmCell(self.lstmcell, dim=self.config.rnn_dim)
-        # init.xavier_uniform_(self.lstmcell.weight_ih)
-        # init.xavier_uniform_(self.lstmcell.weight_hh)
-        # self.lstmcell.bias_hh.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
-        # self.lstmcell.bias_ih.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
 
         self.pos_embed = nn.Embedding(num_embeddings=self.config.pos_size, embedding_dim=self.config.pos_dim,
                                       padding_idx=self.pos_paddingKey)
         init_embedding(self.pos_embed.weight, dim=self.config.pos_dim, paddingKey=self.pos_paddingKey)
-        # init.uniform_(self.pos_embed.weight, a=-np.sqrt(3 / self.config.pos_dim), b=np.sqrt(3 / self.config.pos_dim))
-        # for i in range(self.config.pos_dim):
-        #     self.pos_embed.weight.data[self.pos_paddingKey][i] = 0
-        # self.pos_embed.weight.requires_grad = True
 
         self.linear = nn.Linear(in_features=self.config.rnn_hidden_dim * 2 + self.config.rnn_dim,
                                 out_features=self.config.label_size, bias=False)
-        # init_linear_weight_bias(self.linear)
 
         self.combine_linear = nn.Linear(in_features=self.config.rnn_hidden_dim * 2 + self.config.pos_dim,
                                         out_features=self.config.rnn_dim, bias=True)
 
-        # init.xavier_uniform_(self.linear.weight)
         init_linear_weight_bias(self.linear)
         init_linear_weight_bias(self.combine_linear)
-        # init.xavier_uniform_(self.combine_linear.weight)
-        # self.combine_linear.bias.data.uniform_(-np.sqrt(6 / (self.config.rnn_dim + 1)), np.sqrt(6 / (self.config.rnn_dim + 1)))
 
         self.dropout = nn.Dropout(self.config.dropout)
 
@@ -78,8 +65,6 @@ class Decoder(nn.Module):
         z_bucket = torch.zeros(batch_size, self.config.rnn_dim, device=self.device, requires_grad=True)
         h_bucket = torch.zeros(batch_size, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
         c_bucket = torch.zeros(batch_size, self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
-        # if self.device != cpu_device:
-        #     h_bucket, c_bucket, z_bucket = h_bucket.cuda(), c_bucket.cuda(), z_bucket.cuda()
         return h_bucket, c_bucket, z_bucket
 
     def forward(self, features, encoder_out, train=False):
@@ -100,7 +85,6 @@ class Decoder(nn.Module):
             h_now, c_now = self.batch_wordLstm(id_char, batch_length, encoder_out, state)
 
             v = torch.cat((h_now, encoder_out[id_char]), 1)
-            # print(v)
             output = self.linear(v)
             if id_char is 0:
                 for i in range(batch_length):
@@ -125,10 +109,7 @@ class Decoder(nn.Module):
         else:
             h, c = state.word_hiddens[-1], state.word_cells[-1]
             # copy with the pos features
-            # last_pos = torch.zeros(batch_length, device=self.device, requires_grad=True).long()
             last_pos = torch.zeros(batch_length, device=self.device, requires_grad=True).long()
-            # if self.device != cpu_device:
-            #     last_pos = last_pos.cuda()
             pos_id_array = np.array(state.pos_id[-1])
             last_pos.data.copy_(torch.from_numpy(pos_id_array))
             last_pos_embed = self.dropout(self.pos_embed(last_pos))
@@ -139,15 +120,11 @@ class Decoder(nn.Module):
                 chars_embed = []
                 last_word_len = 0
                 if id_batch_value is -1:
-                    # word_bucket = torch.zeros(1, 2 * self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
                     word_bucket = torch.zeros(1, 2 * self.config.rnn_hidden_dim, device=self.device, requires_grad=True)
-                    # if self.device != cpu_device:
-                    #     word_bucket = word_bucket.cuda()
                     batch_char_embed.append(word_bucket)
                     continue
                 last_word_len = id_char - id_batch_value
                 chars_embed.append((encoder_out.permute(1, 0, 2)[id_batch][id_batch_value:id_char].unsqueeze(0)))
-                # chars_embed = torch.cat(list(encoder_out.permute(1, 0, 2)[id_batch][id_batch_value:id_char].view(1, last_word_len, 2 * self.config.rnn_hidden_dim)), 1)
                 chars_embed = torch.cat(chars_embed, 1).permute(0, 2, 1)
                 last_word_embed = F.avg_pool1d(chars_embed, chars_embed.size(2)).squeeze(2)
                 batch_char_embed.append(last_word_embed)

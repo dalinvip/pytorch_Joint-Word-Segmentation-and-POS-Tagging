@@ -154,38 +154,14 @@ class Train(object):
             steps = 1
             backward_count = 0
             self.optimizer.zero_grad()
-            back_time = []
-            en_time = []
-            de_time = []
-            loss_time = []
-            op_time = []
-            acc_time = []
             for batch_count, batch_features in enumerate(self.train_iter):
                 backward_count += 1
-                # self.optimizer.zero_grad()
                 maxCharSize = batch_features.char_features.size()[1]
-                decoder_out, state, e_t, d_t = self.model(batch_features, train=True)
-                en_time.append(e_t)
-                de_time.append(d_t)
-                # acc_s = time.time()
-                # self.cal_train_acc(batch_features, self.train_eval, batch_count, decoder_out, maxCharSize, self.config)
-                # acc_e = time.time()
-                # acc_time.append(acc_e-acc_s)
-                loss_s = time.time()
+                decoder_out, state = self.model(batch_features, train=True)
                 loss = torch.nn.functional.nll_loss(decoder_out, batch_features.gold_features)
-                loss_e = time.time()
-                loss_time.append(loss_e-loss_s)
-                b_s = time.time()
                 loss.backward()
-                b_e = time.time()
-                back_time.append(b_e - b_s)
-                # print(back_time)
                 self._clip_model_norm(clip_max_norm_use, clip_max_norm)
-                op_s = time.time()
                 self._optimizer_batch_step(config=self.config, backward_count=backward_count)
-                op_e = time.time()
-                op_time.append(op_e - op_s)
-                # self.optimizer.step()
                 steps += 1
                 if (steps - 1) % self.config.log_interval == 0:
                     self.cal_train_acc(batch_features, self.train_eval, batch_count, decoder_out, maxCharSize,
@@ -196,13 +172,6 @@ class Train(object):
                                                          self.train_eval.gold_num,
                                                          self.train_eval.acc() * 100))
             end_time = time.time()
-            # print("\nTrain Time {:.3f}".format(end_time - start_time), end="")
-            print("\nBackWord Time {}".format(sum(back_time)))
-            print("Encoder Time {}".format(sum(en_time)))
-            print("Decoder Time {}".format(sum(de_time)))
-            print("Loss Time {}".format(sum(loss_time)))
-            print("Optimizer Time {}".format(sum(op_time)))
-            print("Cal Acc Time {}".format(sum(acc_time)))
             print("\nTrain Time {:.4f}".format(end_time - start_time))
             self.eval(model=self.model, epoch=epoch, config=self.config)
             self._model2file(model=self.model, config=self.config, epoch=epoch)
@@ -242,21 +211,10 @@ class Train(object):
         :return:
         """
         model.eval()
-        en_time = []
-        de_time = []
-        Joint_time = []
         for batch_features in data_iter:
-            decoder_out, state, e_t, d_t = model(batch_features, train=False)
-            en_time.append(e_t)
-            de_time.append(d_t)
-            j_s = time.time()
+            decoder_out, state = model(batch_features, train=False)
             for i in range(batch_features.batch_length):
                 self.jointPRF_Batch(batch_features.inst[i], state.words[i], state.pos_labels[i], eval_seg, eval_pos)
-            j_e = time.time()
-            Joint_time.append(j_e - j_s)
-        print("Encoder Time {}".format(sum(en_time)))
-        print("Decoder Time {}".format(sum(de_time)))
-        print("Joint Time {}".format(sum(Joint_time)))
 
         # calculate the F-Score
         seg_p, seg_r, seg_f = eval_seg.getFscore()

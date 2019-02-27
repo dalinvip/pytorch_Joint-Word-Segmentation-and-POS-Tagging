@@ -217,6 +217,8 @@ def load_model(config):
     """
     print("***************************************")
     model = JointPS(config)
+    print("Copy models to {}".format(config.save_dir))
+    shutil.copytree("models", "/".join([config.save_dir, "models"]))
     if config.device != cpu_device:
         model = model.cuda()
     if config.test is True:

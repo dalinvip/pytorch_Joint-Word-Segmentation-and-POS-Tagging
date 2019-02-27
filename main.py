@@ -57,12 +57,6 @@ def start_test(train_iter, dev_iter, test_iter, model, alphabet, config):
     """
     print("Sorry For Test, Updating......")
     exit()
-    print("\nTesting Start......")
-    data, path_source, path_result = load_test_data(train_iter, dev_iter, test_iter, config)
-    infer = T_Inference(model=model, data=data, path_source=path_source, path_result=path_result, alphabet=alphabet,
-                        config=config)
-    infer.infer2file()
-    print("Finished Test.")
 
 
 def main():

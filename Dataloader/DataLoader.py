@@ -116,7 +116,6 @@ class DataLoader(DataLoaderHelp):
         for id_data in range(len(path)):
             print("Loading Data Form {}".format(path[id_data]))
             insts = self._Load_Each_Data(path=path[id_data], shuffle=shuffle)
-            # if shuffle is True and id_data == 0:
             print("shuffle train data......")
             random.shuffle(insts)
             # insts = self._sort(insts, path=path[id_data])
@@ -141,6 +140,10 @@ class DataLoader(DataLoaderHelp):
             for index, line in enumerate(lines):
                 # copy with "/n"
                 line = unicodedata.normalize('NFKC', line.strip())
+                # print(line)
+                if "__" in line:
+                    """For CTB7 Error Data"""
+                    continue
                 # init instance
                 inst = Instance()
                 line = line.split(" ")
@@ -151,6 +154,7 @@ class DataLoader(DataLoaderHelp):
                 for word_pos in line:
                     # segment the word and pos in line
                     word, _, label = word_pos.partition("_")
+                    # if word == "":
                     word_length = len(word)
                     inst.words.append(word)
                     inst.gold_seg.append("[" + str(count) + "," + str(count + word_length) + "]")

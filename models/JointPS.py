@@ -38,12 +38,8 @@ class JointPS(nn.Module):
         :param train:
         :return:
         """
-        e_s = time.time()
         encoder = self.encoder(x)
-        e_e = time.time()
-        d_s = time.time()
         decoder_out, state = self.decoder(x, encoder, train=train)
-        d_e = time.time()
-        return decoder_out, state, e_e-e_s, d_e-d_s
+        return decoder_out, state
 
 

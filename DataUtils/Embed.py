@@ -89,7 +89,7 @@ class Embed(object):
         """
         print("loading pre_train embedding by nn.Embedding for out of vocabulary.")
         embed = nn.Embedding(int(self.words_count), int(self.dim))
-        init.xavier_uniform(embed.weight.data)
+        init.xavier_uniform_(embed.weight.data)
         embeddings = np.array(embed.weight.data)
         for word in words_dict:
             if word in embed_dict:

@@ -67,15 +67,6 @@ class Encoder(nn.Module):
         # init lstm weight and bias
         init_lstmCell(self.lstm_left, dim=self.config.rnn_hidden_dim)
         init_lstmCell(self.lstm_right, dim=self.config.rnn_hidden_dim)
-        # init.xavier_uniform_(self.lstm_left.weight_ih)
-        # init.xavier_uniform_(self.lstm_left.weight_hh)
-        # init.xavier_uniform_(self.lstm_right.weight_ih)
-        # init.xavier_uniform_(self.lstm_right.weight_hh)
-        # value = np.sqrt(6 / (self.config.rnn_hidden_dim + 1))
-        # self.lstm_left.bias_hh.data.uniform_(-value, value)
-        # self.lstm_left.bias_ih.data.uniform_(-value, value)
-        # self.lstm_right.bias_hh.data.uniform_(-value, value)
-        # self.lstm_right.bias_ih.data.uniform_(-value, value)
 
         self.dropout = nn.Dropout(self.config.dropout)
         self.dropout_embed = nn.Dropout(self.config.dropout_embed)
@@ -95,7 +86,6 @@ class Encoder(nn.Module):
         h_c = (h, c)
         return h_c
 
-    # @time
     def forward(self, features):
         """
         :param features:

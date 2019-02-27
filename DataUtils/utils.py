@@ -82,6 +82,7 @@ def torch_max(output):
         label.append(arg_max[i].cpu().data.numpy().tolist())
     return label
 
+
 def save_model_all(model, save_dir, model_name, epoch):
     """
     :param model:  nn model
