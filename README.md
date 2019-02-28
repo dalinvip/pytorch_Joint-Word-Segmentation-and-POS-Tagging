@@ -15,7 +15,7 @@ PyTorch-0.3.1 Code release on here. [[PyTorch-0.3.1](https://github.com/bamterce
 	Train:
 	(1) sh run_train_p.sh
 	(2) python -u main.py --config ./Config/config.cfg --device cuda:0--train -p 
-	      [device: "cpu", "cuda:0", "cuda:1", ......]
+	    [device: "cpu", "cuda:0", "cuda:1", ......]
 
 # Config
 	optimizer: Adam
@@ -28,6 +28,8 @@ PyTorch-0.3.1 Code release on here. [[PyTorch-0.3.1](https://github.com/bamterce
 	pos_dim: 100
 	oov: avg 
 	Refer to config.cfg file for more details.
+
+- final log in [[final_log](https://github.com/bamtercelboo/pytorch_Joint-Word-Segmentation-and-POS-Tagging/tree/master/final_log)]  
 
 # Network Structure
 ![](https://i.imgur.com/wIAMutu.png)
