@@ -104,3 +104,14 @@ def init_embedding(input_embedding, dim, paddingKey=None, seed=666):
             input_embedding.data[paddingKey][i] = 0
 
 
+def init_embedding_xavier_uniform_(input_embedding, dim=None, paddingKey=None, seed=666):
+    """
+    :param input_embedding:
+    :param paddingKey:
+    :param seed:
+    :return:
+    """
+    nn.init.xavier_uniform_(input_embedding.weight)
+    if paddingKey is not None:
+        for i in range(dim):
+            input_embedding.weight.data[paddingKey][i] = 0
