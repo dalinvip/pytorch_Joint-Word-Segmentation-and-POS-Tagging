@@ -4,4 +4,3 @@ nohup python -u main.py --config ./Config/config.cfg --device cuda:0 --train -p 
 tail -f log  
  
 
-
