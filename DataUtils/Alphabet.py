@@ -271,15 +271,15 @@ class Alphabet:
         :return:
         """
         print("initial alphabet from {}".format(pretrain_file))
-        self.loadWord2idAndId2Word(unk)
-        self.loadWord2idAndId2Word(padding)
+        self.from_string(unk)
+        self.from_string(padding)
         now_line = 0
         with open(pretrain_file, encoding="UTF-8") as f:
             for line in f.readlines():
                 now_line += 1
                 sys.stdout.write("\rhandling with {} line".format(now_line))
                 info = line.split(" ")
-                self.loadWord2idAndId2Word(info[0])
+                self.from_string(info[0])
         f.close()
         print("\nHandle Finished.")
 
