@@ -1,0 +1,595 @@
+Process ID 14207, Process Parent ID 14206
+Loaded config file Successfully.
+char_pretrained_embed : True
+bichar_pretrained_embed : True
+zeros : False
+avg : True
+uniform : False
+nnembed : False
+char_pretrained_embed_file : /home/lzl/worksapce/wordEmbedding/segpos_wordEmbedding/char.vec
+bichar_pretrained_embed_file : /home/lzl/worksapce/wordEmbedding/segpos_wordEmbedding/bichar.vec
+train_file : ./Data/pku_corpus/pku.train.txt
+dev_file : ./Data/pku_corpus/pku.dev.txt
+test_file : ./Data/pku_corpus/pku.test.txt
+max_count : -1
+min_freq : 1
+word_min_freq : 1
+char_min_freq : 2
+bichar_min_freq : 2
+shuffle : True
+epochs_shuffle : True
+save_pkl : False
+pkl_directory : ./Save_pkl
+pkl_data : pkl_data.pkl
+pkl_alphabet : pkl_alphabet.pkl
+pkl_iter : pkl_iter.pkl
+pkl_embed : pkl_embed.pkl
+save_dict : True
+dict_directory : ./Save_dictionary
+word_dict : dictionary_word
+label_dict : dictionary_label
+save_direction : ./Save_model
+save_best_model_dir : ./Save_BModel
+save_model : True
+save_all_model : False
+save_best_model : True
+model_name : JointPS_model
+rm_model : True
+model_bilstm : False
+model_bilstm_context : False
+lstm_layers : 1
+embed_dim : 100
+embed_char_dim : 200
+embed_bichar_dim : 200
+rnn_hidden_dim : 200
+rnn_dim : 200
+pos_dim : 100
+dropout_embed : 0.25
+dropout : 0.25
+windows_size : 5
+adam : True
+sgd : False
+learning_rate : 0.001
+weight_decay : 1e-8
+clip_max_norm_use : True
+clip_max_norm : 10
+use_lr_decay : True
+lr_rate_decay : 0.75
+min_lrate : 0.00005
+max_patience : 8
+num_threads : 1
+epochs : 1000
+early_max_patience : 10
+backward_batch_size : 1
+batch_size : 16
+dev_batch_size : 16
+test_batch_size : 16
+log_interval : 600
+***************************************
+Device : cuda:1
+Data Process : True
+Train model : True
+Test model : False
+t_model : None
+t_data : None
+predict : False
+***************************************
+Using GPU To Train......
+Current Cuda Device 1
+torch.cuda.initial_seed 233
+load data for process or pkl data.
+process data
+Processing Data......
+Loading Data......
+Data Path ['./Data/pku_corpus/pku.train.txt', './Data/pku_corpus/pku.dev.txt', './Data/pku_corpus/pku.test.txt']
+Loading Data Form ./Data/pku_corpus/pku.train.txt
+shuffle train data......
+Loading Data Form ./Data/pku_corpus/pku.dev.txt
+shuffle train data......
+Loading Data Form ./Data/pku_corpus/pku.test.txt
+shuffle train data......
+Train Sentence 16720, Dev Sentence 1892, Test Sentence 2459.
+Build Vocab Start...... 
+the length of train data 16720
+the length of data that create Alphabet 16720
+Build Vocab Start...... 
+the length of train data 16720
+the length of dev data 1892
+the length of test data 2459
+the length of data that create Alphabet 21071
+*****************    create 1 iterator    **************
+The all data has created iterator.
+*****************    create 2 iterator    **************
+The all data has created iterator.
+*****************    create 3 iterator    **************
+The all data has created iterator.
+***************************************
+  0%|          | 0/5726 [00:00<?, ?it/s] 87%|████████▋ | 4990/5726 [00:00<00:00, 49836.72it/s]100%|██████████| 5726/5726 [00:00<00:00, 50675.60it/s]
+loading pre_train embedding by avg for out of vocabulary.
+Words count 4766, Embed dim 200.
+Exact count 4634 / 4766
+Fuzzy count 0 / 4766
+  INV count 4634 / 4766
+  OOV count 132 / 4766
+  OOV radio ===> 2.85%
+****************************************
+  0%|          | 0/556940 [00:00<?, ?it/s]  1%|          | 3339/556940 [00:00<00:16, 33381.75it/s]  1%|▏         | 7759/556940 [00:00<00:17, 32274.34it/s]  2%|▏         | 13343/556940 [00:00<00:13, 39196.17it/s]  3%|▎         | 17573/556940 [00:00<00:13, 39886.37it/s]  4%|▍         | 23125/556940 [00:00<00:12, 42777.46it/s]  5%|▍         | 27462/556940 [00:00<00:12, 42868.69it/s]  6%|▌         | 32995/556940 [00:00<00:12, 43556.33it/s]  7%|▋         | 38720/556940 [00:00<00:11, 45153.13it/s]  8%|▊         | 43420/556940 [00:00<00:11, 45244.04it/s]  9%|▉         | 49070/556940 [00:01<00:10, 46305.44it/s] 10%|▉         | 54034/556940 [00:01<00:10, 46209.88it/s] 11%|█         | 58868/556940 [00:01<00:10, 46244.55it/s] 12%|█▏        | 64540/556940 [00:01<00:10, 47002.88it/s] 12%|█▏        | 69587/556940 [00:02<00:16, 29598.17it/s] 14%|█▎        | 75277/556940 [00:02<00:15, 30712.09it/s] 14%|█▍        | 79736/556940 [00:02<00:15, 31256.01it/s] 15%|█▌        | 84181/556940 [00:02<00:14, 31753.52it/s] 16%|█▌        | 89767/556940 [00:02<00:14, 32626.20it/s] 17%|█▋        | 94498/556940 [00:02<00:13, 33109.94it/s] 18%|█▊        | 100128/556940 [00:02<00:13, 33894.80it/s] 19%|█▉        | 105103/556940 [00:03<00:13, 34329.27it/s] 20%|█▉        | 109973/556940 [00:03<00:12, 34709.98it/s] 21%|██        | 115669/556940 [00:03<00:12, 35390.61it/s] 22%|██▏       | 120723/556940 [00:03<00:12, 35736.50it/s] 23%|██▎       | 126219/556940 [00:03<00:11, 36119.97it/s] 24%|██▎       | 131827/556940 [00:03<00:11, 36663.04it/s] 25%|██▍       | 136892/556940 [00:03<00:11, 36955.53it/s] 26%|██▌       | 142597/556940 [00:03<00:11, 37483.65it/s] 27%|██▋       | 147770/556940 [00:03<00:10, 37750.72it/s] 27%|██▋       | 152801/556940 [00:04<00:10, 37962.20it/s] 28%|██▊       | 158465/556940 [00:04<00:10, 38404.74it/s] 29%|██▉       | 163565/556940 [00:04<00:10, 38589.11it/s] 30%|███       | 168496/556940 [00:04<00:10, 38768.79it/s] 31%|███▏      | 174236/556940 [00:04<00:09, 39187.76it/s] 32%|███▏      | 179337/556940 [00:04<00:09, 39322.76it/s] 33%|███▎      | 185039/556940 [00:04<00:09, 39702.44it/s] 34%|███▍      | 190185/556940 [00:04<00:09, 39861.34it/s] 35%|███▌      | 195184/556940 [00:04<00:09, 40015.83it/s] 36%|███▌      | 200905/556940 [00:04<00:08, 40361.12it/s] 37%|███▋      | 206057/556940 [00:06<00:10, 32651.88it/s] 38%|███▊      | 211031/556940 [00:06<00:10, 32877.03it/s] 39%|███▉      | 216720/556940 [00:06<00:10, 33245.34it/s] 40%|███▉      | 221273/556940 [00:06<00:10, 33430.86it/s] 41%|████      | 227030/556940 [00:06<00:09, 33790.13it/s] 42%|████▏     | 231917/556940 [00:06<00:09, 33982.85it/s] 43%|████▎     | 236725/556940 [00:06<00:09, 34165.50it/s] 43%|████▎     | 242255/556940 [00:07<00:09, 34466.15it/s] 44%|████▍     | 247239/556940 [00:07<00:08, 34415.40it/s] 45%|████▌     | 251691/556940 [00:07<00:08, 34508.28it/s] 46%|████▌     | 256152/556940 [00:07<00:08, 34644.84it/s] 47%|████▋     | 261503/556940 [00:07<00:08, 34831.24it/s] 48%|████▊     | 267127/556940 [00:07<00:08, 35112.60it/s] 49%|████▉     | 271942/556940 [00:07<00:08, 35269.41it/s] 50%|████▉     | 277626/556940 [00:07<00:07, 35541.32it/s] 51%|█████     | 282660/556940 [00:07<00:07, 35694.46it/s] 52%|█████▏    | 287588/556940 [00:08<00:07, 35827.25it/s] 53%|█████▎    | 293318/556940 [00:08<00:07, 36091.41it/s] 54%|█████▎    | 298408/556940 [00:08<00:07, 36233.85it/s] 55%|█████▍    | 303563/556940 [00:08<00:06, 36369.40it/s] 56%|█████▌    | 309171/556940 [00:08<00:06, 36602.56it/s] 56%|█████▋    | 314263/556940 [00:08<00:06, 36726.81it/s] 57%|█████▋    | 319964/556940 [00:08<00:06, 36961.08it/s] 58%|█████▊    | 325141/556940 [00:08<00:06, 37089.05it/s] 59%|█████▉    | 330181/556940 [00:08<00:06, 37208.51it/s] 60%|██████    | 335809/556940 [00:08<00:05, 37419.60it/s] 61%|██████    | 340948/556940 [00:09<00:05, 37534.59it/s] 62%|██████▏   | 345954/556940 [00:09<00:05, 37642.85it/s] 63%|██████▎   | 351065/556940 [00:09<00:05, 37787.80it/s] 64%|██████▍   | 356035/556940 [00:09<00:05, 37892.06it/s] 65%|██████▍   | 361688/556940 [00:09<00:05, 38088.31it/s] 66%|██████▌   | 366808/556940 [00:09<00:04, 38178.08it/s] 67%|██████▋   | 371766/556940 [00:11<00:05, 32636.57it/s] 68%|██████▊   | 377355/556940 [00:11<00:05, 32838.90it/s] 69%|██████▊   | 381867/556940 [00:11<00:05, 32944.83it/s] 70%|██████▉   | 387612/556940 [00:11<00:05, 33154.40it/s] 70%|███████   | 392324/556940 [00:11<00:04, 33265.64it/s] 71%|███████▏  | 397001/556940 [00:11<00:04, 33374.97it/s] 72%|███████▏  | 402650/556940 [00:11<00:04, 33567.66it/s] 73%|███████▎  | 407604/556940 [00:12<00:04, 33680.82it/s] 74%|███████▍  | 413364/556940 [00:12<00:04, 33876.84it/s] 75%|███████▌  | 418494/556940 [00:12<00:04, 33994.41it/s] 76%|███████▌  | 423501/556940 [00:12<00:03, 34101.96it/s] 77%|███████▋  | 429144/556940 [00:12<00:03, 34280.28it/s] 78%|███████▊  | 434264/556940 [00:12<00:03, 34383.94it/s] 79%|███████▉  | 439230/556940 [00:12<00:03, 34486.83it/s] 80%|███████▉  | 444997/556940 [00:12<00:03, 34667.40it/s] 81%|████████  | 450141/556940 [00:12<00:03, 34768.02it/s] 82%|████████▏ | 455668/556940 [00:13<00:02, 34879.27it/s] 83%|████████▎ | 461390/556940 [00:13<00:02, 35048.97it/s] 84%|████████▍ | 466544/556940 [00:13<00:02, 35146.13it/s] 85%|████████▍ | 472269/556940 [00:13<00:02, 35311.38it/s] 86%|████████▌ | 477494/556940 [00:13<00:02, 35405.44it/s] 87%|████████▋ | 482551/556940 [00:13<00:02, 35485.29it/s] 88%|████████▊ | 488173/556940 [00:13<00:01, 35636.65it/s] 89%|████████▊ | 493284/556940 [00:13<00:01, 35726.20it/s] 89%|████████▉ | 498272/556940 [00:13<00:01, 35810.77it/s] 90%|█████████ | 503853/556940 [00:14<00:01, 35953.48it/s] 91%|█████████▏| 508954/556940 [00:14<00:01, 36035.10it/s] 92%|█████████▏| 514552/556940 [00:14<00:01, 36130.34it/s] 93%|█████████▎| 520334/556940 [00:14<00:01, 36281.53it/s] 94%|█████████▍| 525500/556940 [00:14<00:00, 36365.42it/s] 95%|█████████▌| 531159/556940 [00:14<00:00, 36504.41it/s] 96%|█████████▋| 536384/556940 [00:14<00:00, 36572.07it/s] 97%|█████████▋| 541393/556940 [00:14<00:00, 36645.89it/s] 98%|█████████▊| 547174/556940 [00:14<00:00, 36788.16it/s] 99%|█████████▉| 552345/556940 [00:14<00:00, 36860.75it/s]100%|██████████| 556940/556940 [00:15<00:00, 36917.86it/s]
+loading pre_train embedding by avg for out of vocabulary.
+Words count 302442, Embed dim 200.
+Exact count 223724 / 302442
+Fuzzy count 1 / 302442
+  INV count 223725 / 302442
+  OOV count 78717 / 302442
+  OOV radio ===> 35.18%
+****************************************
+learning algorithm is Adam.
+embed_char_num : 4069, embed_bichar_num : 122742
+static_embed_char_num : 4766, static_embed_bichar_num : 302442
+label_size : 29, pos_size : 29
+char_paddingId : 1, bichar_paddingId : 1
+static_char_paddingId : 1, static_bichar_paddingId : 1
+char_dict_path : ./Save_dictionary/dictionary_word_char.txt
+bichar_dict_path : ./Save_dictionary/dictionary_word_bichar.txt
+static_char_dict_path : ./Save_dictionary/dictionary_word_static_char.txt
+static_bichar_dict_path : ./Save_dictionary/dictionary_word_static_bichar.txt
+pos_dict_path : ./Save_dictionary/dictionary_label_pos.txt
+seg_pos_dict_path : ./Save_dictionary/dictionary_label_seg_pos.txt
+Saving dictionary
+Save dictionary finished.
+Saving dictionary
+Save dictionary finished.
+Saving dictionary
+Save dictionary finished.
+Saving dictionary
+Save dictionary finished.
+Saving dictionary
+Save dictionary finished.
+Saving dictionary
+Save dictionary finished.
+copy dictionary to ./Save_model/2019-03-01_09-42-10
+***************************************
+Copy models to ./Save_model/2019-03-01_09-42-10
+JointPS(
+  (encoder): Encoder(
+    (char_embed): Embedding(4069, 200, padding_idx=1)
+    (bichar_embed): Embedding(122742, 200, padding_idx=1)
+    (static_char_embed): Embedding(4766, 200, padding_idx=1)
+    (static_bichar_embed): Embedding(302442, 200, padding_idx=1)
+    (lstm_left): LSTMCell(200, 200)
+    (lstm_right): LSTMCell(200, 200)
+    (dropout): Dropout(p=0.25)
+    (dropout_embed): Dropout(p=0.25)
+    (liner): Linear(in_features=800, out_features=200, bias=True)
+  )
+  (decoder): Decoder(
+    (lstmcell): LSTMCell(200, 200)
+    (pos_embed): Embedding(29, 100, padding_idx=1)
+    (linear): Linear(in_features=600, out_features=29, bias=False)
+    (combine_linear): Linear(in_features=500, out_features=200, bias=True)
+    (dropout): Dropout(p=0.25)
+    (softmax): LogSoftmax()
+  )
+)
+Training Start......
+Optimizer => Adam (lr: 0.001, weight_decay: 1e-08, g_clip: 10.0)
+
+## The 1 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.104166 , (Correct/Total_num) = Accuracy (1358/1548) = 87.726098%
+Train Time 1066.8997
+Dev ---->
+seg: precision = 92.3605%  recall = 93.4936% , f-score = 92.9236%
+pos: precision = 88.2867%  recall = 89.3699% , f-score = 88.8250%
+Dev Time 55.2959
+Test ---->
+seg: precision = 91.5720%  recall = 92.2771% , f-score = 91.9232%
+pos: precision = 86.9218%  recall = 87.5911% , f-score = 87.2552%
+The Current Best Dev F-score: 88.8250%, Locate on 1 Epoch.
+Test Time 77.5362
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 2 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.075436 , (Correct/Total_num) = Accuracy (2131/2253) = 94.584998%
+Train Time 1081.5005
+Dev ---->
+seg: precision = 94.4153%  recall = 95.2698% , f-score = 94.8406%
+pos: precision = 91.5742%  recall = 92.4031% , f-score = 91.9868%
+Dev Time 53.2382
+Test ---->
+seg: precision = 93.5560%  recall = 94.0003% , f-score = 93.7776%
+pos: precision = 90.2366%  recall = 90.6652% , f-score = 90.4504%
+The Current Best Dev F-score: 91.9868%, Locate on 2 Epoch.
+Test Time 75.1236
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 3 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.034247 , (Correct/Total_num) = Accuracy (1701/1755) = 96.923077%
+Train Time 1081.2611
+Dev ---->
+seg: precision = 95.0831%  recall = 95.9685% , f-score = 95.5237%
+pos: precision = 92.6628%  recall = 93.5257% , f-score = 93.0923%
+Dev Time 54.7988
+Test ---->
+seg: precision = 94.3022%  recall = 94.8056% , f-score = 94.5533%
+pos: precision = 91.4208%  recall = 91.9088% , f-score = 91.6642%
+The Current Best Dev F-score: 93.0923%, Locate on 3 Epoch.
+Test Time 76.3536
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 4 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.043261 , (Correct/Total_num) = Accuracy (1459/1527) = 95.546824%
+Train Time 1071.7019
+Dev ---->
+seg: precision = 95.7353%  recall = 96.3744% , f-score = 96.0538%
+pos: precision = 93.6005%  recall = 94.2254% , f-score = 93.9119%
+Dev Time 55.3322
+Test ---->
+seg: precision = 94.9527%  recall = 95.1465% , f-score = 95.0495%
+pos: precision = 92.2139%  recall = 92.4021% , f-score = 92.3079%
+The Current Best Dev F-score: 93.9119%, Locate on 4 Epoch.
+Test Time 78.5302
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 5 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.048197 , (Correct/Total_num) = Accuracy (1253/1303) = 96.162701%
+Train Time 1073.0626
+Dev ---->
+seg: precision = 95.9428%  recall = 96.5689% , f-score = 96.2549%
+pos: precision = 93.9670%  recall = 94.5802% , f-score = 94.2726%
+Dev Time 56.4561
+Test ---->
+seg: precision = 95.1308%  recall = 95.3094% , f-score = 95.2200%
+pos: precision = 92.5724%  recall = 92.7462% , f-score = 92.6592%
+The Current Best Dev F-score: 94.2726%, Locate on 5 Epoch.
+Test Time 77.9316
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 6 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.022552 , (Correct/Total_num) = Accuracy (1389/1429) = 97.200840%
+Train Time 1059.6852
+Dev ---->
+seg: precision = 96.4340%  recall = 96.7433% , f-score = 96.5884%
+pos: precision = 94.4816%  recall = 94.7847% , f-score = 94.6329%
+Dev Time 54.0624
+Test ---->
+seg: precision = 95.3870%  recall = 95.3427% , f-score = 95.3649%
+pos: precision = 92.8711%  recall = 92.8280% , f-score = 92.8495%
+The Current Best Dev F-score: 94.6329%, Locate on 6 Epoch.
+Test Time 76.8861
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 7 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.020483 , (Correct/Total_num) = Accuracy (1967/2016) = 97.569444%
+Train Time 1068.4143
+Dev ---->
+seg: precision = 96.0597%  recall = 96.8897% , f-score = 96.4729%
+pos: precision = 94.1685%  recall = 94.9822% , f-score = 94.5736%
+Dev Time 54.7996
+Test ---->
+seg: precision = 95.1660%  recall = 95.6541% , f-score = 95.4095%
+pos: precision = 92.6752%  recall = 93.1505% , f-score = 92.9122%
+The Current Best Dev F-score: 94.6329%, Locate on 6 Epoch.
+Test Time 74.5178
+Dev Has Not Promote 1 / 10
+
+## The 8 Epoch, All 1000 Epochs ! ##
+now lr is 0.001
+Batch_count = [600/1045] , Loss is 0.010461 , (Correct/Total_num) = Accuracy (1681/1710) = 98.304094%
+Train Time 1087.4885
+Dev ---->
+seg: precision = 96.5340%  recall = 96.9298% , f-score = 96.7315%
+pos: precision = 94.6642%  recall = 95.0523% , f-score = 94.8579%
+Dev Time 54.1281
+Test ---->
+seg: precision = 95.5933%  recall = 95.5802% , f-score = 95.5868%
+pos: precision = 93.1731%  recall = 93.1603% , f-score = 93.1667%
+The Current Best Dev F-score: 94.8579%, Locate on 8 Epoch.
+Test Time 76.0486
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 9 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.022783 , (Correct/Total_num) = Accuracy (1897/1930) = 98.290155%
+Train Time 1063.9887
+Dev ---->
+seg: precision = 96.7053%  recall = 96.8546% , f-score = 96.7799%
+pos: precision = 94.9268%  recall = 95.0734% , f-score = 95.0001%
+Dev Time 55.0692
+Test ---->
+seg: precision = 95.8596%  recall = 95.4814% , f-score = 95.6701%
+pos: precision = 93.4872%  recall = 93.1184% , f-score = 93.3025%
+The Current Best Dev F-score: 95.0001%, Locate on 9 Epoch.
+Test Time 76.8241
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 10 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.018209 , (Correct/Total_num) = Accuracy (1871/1904) = 98.266807%
+Train Time 1101.9232
+Dev ---->
+seg: precision = 96.5536%  recall = 96.8826% , f-score = 96.7178%
+pos: precision = 94.7964%  recall = 95.1195% , f-score = 94.9577%
+Dev Time 54.1673
+Test ---->
+seg: precision = 95.7736%  recall = 95.6345% , f-score = 95.7040%
+pos: precision = 93.4419%  recall = 93.3062% , f-score = 93.3740%
+The Current Best Dev F-score: 95.0001%, Locate on 9 Epoch.
+Test Time 76.1738
+Dev Has Not Promote 1 / 10
+
+## The 11 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.016803 , (Correct/Total_num) = Accuracy (1385/1417) = 97.741708%
+Train Time 1125.0856
+Dev ---->
+seg: precision = 96.5613%  recall = 96.9668% , f-score = 96.7636%
+pos: precision = 94.8135%  recall = 95.2117% , f-score = 95.0122%
+Dev Time 54.7329
+Test ---->
+seg: precision = 95.7513%  recall = 95.6698% , f-score = 95.7105%
+pos: precision = 93.4256%  recall = 93.3461% , f-score = 93.3858%
+The Current Best Dev F-score: 95.0122%, Locate on 11 Epoch.
+Test Time 76.9793
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 12 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.015890 , (Correct/Total_num) = Accuracy (1066/1078) = 98.886827%
+Train Time 1072.8357
+Dev ---->
+seg: precision = 96.6379%  recall = 96.9789% , f-score = 96.8081%
+pos: precision = 94.8590%  recall = 95.1937% , f-score = 95.0260%
+Dev Time 51.1977
+Test ---->
+seg: precision = 95.8284%  recall = 95.7745% , f-score = 95.8015%
+pos: precision = 93.5184%  recall = 93.4658% , f-score = 93.4921%
+The Current Best Dev F-score: 95.0260%, Locate on 12 Epoch.
+Test Time 71.2885
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 13 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.013945 , (Correct/Total_num) = Accuracy (1377/1405) = 98.007117%
+Train Time 1048.9216
+Dev ---->
+seg: precision = 96.4746%  recall = 97.0200% , f-score = 96.7465%
+pos: precision = 94.7383%  recall = 95.2738% , f-score = 95.0053%
+Dev Time 49.9955
+Test ---->
+seg: precision = 95.7271%  recall = 95.7935% , f-score = 95.7603%
+pos: precision = 93.3945%  recall = 93.4593% , f-score = 93.4269%
+The Current Best Dev F-score: 95.0260%, Locate on 12 Epoch.
+Test Time 69.5981
+Dev Has Not Promote 1 / 10
+
+## The 14 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.008435 , (Correct/Total_num) = Accuracy (1939/1954) = 99.232344%
+Train Time 1048.7362
+Dev ---->
+seg: precision = 96.6636%  recall = 97.0550% , f-score = 96.8589%
+pos: precision = 94.8986%  recall = 95.2829% , f-score = 95.0903%
+Dev Time 50.9624
+Test ---->
+seg: precision = 95.8363%  recall = 95.8125% , f-score = 95.8244%
+pos: precision = 93.4675%  recall = 93.4442% , f-score = 93.4559%
+The Current Best Dev F-score: 95.0903%, Locate on 14 Epoch.
+Test Time 70.4071
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 15 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.009603 , (Correct/Total_num) = Accuracy (1052/1064) = 98.872180%
+Train Time 1079.8036
+Dev ---->
+seg: precision = 96.6660%  recall = 97.0109% , f-score = 96.8382%
+pos: precision = 94.9021%  recall = 95.2408% , f-score = 95.0711%
+Dev Time 49.7711
+Test ---->
+seg: precision = 95.8722%  recall = 95.8170% , f-score = 95.8446%
+pos: precision = 93.5341%  recall = 93.4802% , f-score = 93.5071%
+The Current Best Dev F-score: 95.0903%, Locate on 14 Epoch.
+Test Time 70.2955
+Dev Has Not Promote 1 / 10
+
+## The 16 Epoch, All 1000 Epochs ! ##
+now lr is 0.00075
+Batch_count = [600/1045] , Loss is 0.022325 , (Correct/Total_num) = Accuracy (2015/2074) = 97.155256%
+Train Time 1110.0863
+Dev ---->
+seg: precision = 96.7579%  recall = 97.0150% , f-score = 96.8863%
+pos: precision = 94.9805%  recall = 95.2327% , f-score = 95.1064%
+Dev Time 52.2856
+Test ---->
+seg: precision = 95.9547%  recall = 95.7765% , f-score = 95.8655%
+pos: precision = 93.6477%  recall = 93.4737% , f-score = 93.5606%
+The Current Best Dev F-score: 95.1064%, Locate on 16 Epoch.
+Test Time 71.7973
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 17 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.012692 , (Correct/Total_num) = Accuracy (1335/1348) = 99.035608%
+Train Time 1116.8751
+Dev ---->
+seg: precision = 96.6633%  recall = 97.1322% , f-score = 96.8972%
+pos: precision = 94.9116%  recall = 95.3721% , f-score = 95.1413%
+Dev Time 50.8618
+Test ---->
+seg: precision = 95.8161%  recall = 95.9296% , f-score = 95.8728%
+pos: precision = 93.4840%  recall = 93.5947% , f-score = 93.5393%
+The Current Best Dev F-score: 95.1413%, Locate on 17 Epoch.
+Test Time 71.2717
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 18 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.013198 , (Correct/Total_num) = Accuracy (1523/1548) = 98.385013%
+Train Time 1091.4229
+Dev ---->
+seg: precision = 96.9319%  recall = 96.9999% , f-score = 96.9659%
+pos: precision = 95.1660%  recall = 95.2327% , f-score = 95.1994%
+Dev Time 50.9026
+Test ---->
+seg: precision = 96.0319%  recall = 95.5959% , f-score = 95.8134%
+pos: precision = 93.7061%  recall = 93.2807% , f-score = 93.4929%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 71.0380
+save best model to ./Save_BModel/JointPS_model.pt
+
+## The 19 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.007055 , (Correct/Total_num) = Accuracy (1136/1144) = 99.300699%
+Train Time 1101.4861
+Dev ---->
+seg: precision = 96.8252%  recall = 97.0310% , f-score = 96.9280%
+pos: precision = 95.0478%  recall = 95.2498% , f-score = 95.1487%
+Dev Time 50.3695
+Test ---->
+seg: precision = 95.9482%  recall = 95.7555% , f-score = 95.8518%
+pos: precision = 93.6048%  recall = 93.4168% , f-score = 93.5107%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 71.0017
+Dev Has Not Promote 1 / 10
+
+## The 20 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.006837 , (Correct/Total_num) = Accuracy (1263/1273) = 99.214454%
+Train Time 1064.1986
+Dev ---->
+seg: precision = 96.7706%  recall = 96.9869% , f-score = 96.8786%
+pos: precision = 95.0354%  recall = 95.2478% , f-score = 95.1415%
+Dev Time 51.2019
+Test ---->
+seg: precision = 96.0122%  recall = 95.7169% , f-score = 95.8643%
+pos: precision = 93.6944%  recall = 93.4063% , f-score = 93.5501%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 71.7842
+Dev Has Not Promote 2 / 10
+
+## The 21 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.015616 , (Correct/Total_num) = Accuracy (2702/2736) = 98.757310%
+Train Time 1065.1239
+Dev ---->
+seg: precision = 96.7088%  recall = 97.0500% , f-score = 96.8791%
+pos: precision = 94.9459%  recall = 95.2809% , f-score = 95.1131%
+Dev Time 50.1204
+Test ---->
+seg: precision = 95.8941%  recall = 95.7850% , f-score = 95.8395%
+pos: precision = 93.5383%  recall = 93.4318% , f-score = 93.4850%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 70.9544
+Dev Has Not Promote 3 / 10
+
+## The 22 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.010807 , (Correct/Total_num) = Accuracy (1715/1739) = 98.619896%
+Train Time 1070.4501
+Dev ---->
+seg: precision = 96.6078%  recall = 97.0019% , f-score = 96.8045%
+pos: precision = 94.8528%  recall = 95.2398% , f-score = 95.0459%
+Dev Time 50.1693
+Test ---->
+seg: precision = 95.8337%  recall = 95.8700% , f-score = 95.8518%
+pos: precision = 93.5075%  recall = 93.5430% , f-score = 93.5253%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 70.5571
+Dev Has Not Promote 4 / 10
+
+## The 23 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.009309 , (Correct/Total_num) = Accuracy (1568/1587) = 98.802773%
+Train Time 1117.6599
+Dev ---->
+seg: precision = 96.6210%  recall = 97.0230% , f-score = 96.8216%
+pos: precision = 94.8772%  recall = 95.2718% , f-score = 95.0741%
+Dev Time 51.2370
+Test ---->
+seg: precision = 95.8269%  recall = 95.8589% , f-score = 95.8429%
+pos: precision = 93.4575%  recall = 93.4887% , f-score = 93.4731%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 70.6374
+Dev Has Not Promote 5 / 10
+
+## The 24 Epoch, All 1000 Epochs ! ##
+now lr is 0.0005625000000000001
+Batch_count = [600/1045] , Loss is 0.009570 , (Correct/Total_num) = Accuracy (1891/1913) = 98.849974%
+Train Time 1031.4909
+Dev ---->
+seg: precision = 96.7323%  recall = 97.1192% , f-score = 96.9254%
+pos: precision = 94.9592%  recall = 95.3390% , f-score = 95.1487%
+Dev Time 50.8698
+Test ---->
+seg: precision = 95.8159%  recall = 95.8210% , f-score = 95.8185%
+pos: precision = 93.4583%  recall = 93.4632% , f-score = 93.4608%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 70.8128
+Dev Has Not Promote 6 / 10
+
+## The 25 Epoch, All 1000 Epochs ! ##
+now lr is 0.00042187500000000005
+Batch_count = [600/1045] , Loss is 0.005295 , (Correct/Total_num) = Accuracy (1387/1396) = 99.355301%
+Train Time 1065.4113
+Dev ---->
+seg: precision = 96.7952%  recall = 97.0911% , f-score = 96.9429%
+pos: precision = 95.0424%  recall = 95.3330% , f-score = 95.1875%
+Dev Time 51.4758
+Test ---->
+seg: precision = 95.9839%  recall = 95.7667% , f-score = 95.8752%
+pos: precision = 93.5815%  recall = 93.3697% , f-score = 93.4755%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 70.3965
+Dev Has Not Promote 7 / 10
+
+## The 26 Epoch, All 1000 Epochs ! ##
+now lr is 0.00042187500000000005
+Batch_count = [600/1045] , Loss is 0.010186 , (Correct/Total_num) = Accuracy (1503/1517) = 99.077126%
+Train Time 1053.7392
+Dev ---->
+seg: precision = 96.6765%  recall = 96.9789% , f-score = 96.8275%
+pos: precision = 94.9049%  recall = 95.2017% , f-score = 95.0530%
+Dev Time 50.5383
+Test ---->
+seg: precision = 95.8520%  recall = 95.7529% , f-score = 95.8024%
+pos: precision = 93.5010%  recall = 93.4043% , f-score = 93.4526%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 71.3757
+Dev Has Not Promote 8 / 10
+
+## The 27 Epoch, All 1000 Epochs ! ##
+now lr is 0.00042187500000000005
+Batch_count = [600/1045] , Loss is 0.013225 , (Correct/Total_num) = Accuracy (1581/1598) = 98.936170%
+Train Time 1049.1383
+Dev ---->
+seg: precision = 96.7096%  recall = 97.0440% , f-score = 96.8765%
+pos: precision = 94.9295%  recall = 95.2578% , f-score = 95.0934%
+Dev Time 50.6873
+Test ---->
+seg: precision = 95.8576%  recall = 95.8268% , f-score = 95.8422%
+pos: precision = 93.4827%  recall = 93.4527% , f-score = 93.4677%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 69.9684
+Dev Has Not Promote 9 / 10
+
+## The 28 Epoch, All 1000 Epochs ! ##
+now lr is 0.00042187500000000005
+Batch_count = [600/1045] , Loss is 0.008442 , (Correct/Total_num) = Accuracy (1792/1815) = 98.732782%
+Train Time 1139.7925
+Dev ---->
+seg: precision = 96.8886%  recall = 96.9799% , f-score = 96.9342%
+pos: precision = 95.1000%  recall = 95.1896% , f-score = 95.1448%
+Dev Time 51.1182
+Test ---->
+seg: precision = 96.0491%  recall = 95.6803% , f-score = 95.8644%
+pos: precision = 93.6574%  recall = 93.2977% , f-score = 93.4772%
+The Current Best Dev F-score: 95.1994%, Locate on 18 Epoch.
+Test Time 72.0878
+Dev Has Not Promote 10 / 10
+Early Stop Train. Best Score Locate on 18 Epoch.
