@@ -184,7 +184,7 @@ class Embed(object):
         print("Fuzzy count {} / {}".format(self.fuzzy_count, self.words_count))
         print("  INV count {} / {}".format(total_count, self.words_count))
         print("  OOV count {} / {}".format(self.oov_count, self.words_count))
-        print("  OOV radio ===> {}%".format(np.round((self.oov_count / total_count) * 100, 2)))
+        print("  OOV radio ===> {}%".format(np.round((self.oov_count / self.words_count) * 100, 2)))
         print(40 * "*")
 
     @staticmethod
